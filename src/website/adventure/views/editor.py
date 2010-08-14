@@ -14,7 +14,7 @@ def adventure_create(request):
         form = AdventureCreateForm(request.POST, author=request.user)
         if form.is_valid():
             obj = form.save()
-            messages.info(request, u"You have successfully created a new adventure.")
+            messages.success(request, u"You have successfully created a new adventure.")
             return HttpResponseRedirect(reverse('location-create', args=(obj.pk,)))
     else:
         form = AdventureCreateForm(author=request.user)
@@ -31,7 +31,7 @@ def adventure_edit(request, object_id):
         form = AdventureChangeForm(request.POST, request.FILES, instance=obj)
         if form.is_valid():
             obj = form.save()
-            messages.info(request, u"You have successfully changed the adventure.")
+            messages.success(request, u"You have successfully changed the adventure.")
             return HttpResponseRedirect(obj.get_absolute_url())
     else:
         form = AdventureChangeForm(instance=obj)
