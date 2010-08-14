@@ -4,9 +4,11 @@
 
 {% if only_own_adventures %}
 <h1>The Adventures you created</h1>
+{% else %}{% if author_list %}
+<h1>Browse all Adventures from our user {{ author.username }} !</h1>
 {% else %}
 <h1>Browse all the Adventures our users created for you to play !</h1>
-{% endif %}
+{% endif %}{% endif %}
 
 <table cellspacing="0" cellpadding="0" class="object-list">
     <thead>
@@ -30,7 +32,7 @@
             <td>
                 <a href="{% url adventure-detail adventure.id %}">{{ adventure }}</a>
             </td>
-            <td>{{ adventure.author.username }}</td>
+            <td><a href="{% url adventure-list-author adventure.author.username %}">{{ adventure.author.username }}</a></td>
             <td>{{ adventure.get_language_display }}</td>
             <td>{{ adventure.avg_rating }}</td>
             {% if show_status %}

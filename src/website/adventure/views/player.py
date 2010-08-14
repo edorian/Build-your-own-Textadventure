@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.loader import render_to_string
 from django.template import RequestContext
@@ -10,6 +11,7 @@ from website.adventure.models import Adventure, Location, Rating
 def adventure_list(request, adventures=None, extra_context=None):
     if adventures is None:
         adventures = Adventure.objects.filter(published=True)
+    adventures = adventures.select_related('author')
     adventures = adventures.annotate(avg_rating=Avg('rating__rating'))
 
     context = {
@@ -32,7 +34,7 @@ def adventure_list(request, adventures=None, extra_context=None):
                 adventure.status = "unplayed"
 
     if extra_context is not None:
-        context.update(extra_content)
+        context.update(extra_context)
 
     return render_to_response('adventure/adventure_list.html', context,
         context_instance=RequestContext(request))
@@ -41,6 +43,11 @@ def adventure_list(request, adventures=None, extra_context=None):
 def adventure_list_my(request):
     adventures = Adventure.objects.filter(author=request.user)
     return adventure_list(request, adventures, {"only_own_adventures": True});
+
+def adventure_list_author(request, username):
+    author = get_object_or_404(User, username=username)
+    adventures = Adventure.objects.filter(author=author)
+    return adventure_list(request, adventures, {"author": author, "author_list": True});
 
 def adventure_detail(request, object_id):
     object = Adventure.objects.get(pk=object_id)
