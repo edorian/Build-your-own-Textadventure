@@ -31,11 +31,18 @@
     <header>
         <h1>txtadv</h1>
         <nav>
+            <ul>
+                <li><a href="{% url index %}">Homepage</a></li>
+                <li><a href="#">Adventures</a></li>
+                <li><a href="#">Create your own adventure</a></li>
+            </ul>
+            <p id="usernav">
             {% if user.is_authenticated %}
-            <p>You're logged in as: {{ user.username }}, <a href="{% url auth_logout %}">logout</a></p>
+                You're logged in as: {{ user.username }} (<a href="{% url profile %}">Profile</a>), <a href="{% url auth_logout %}">logout</a>
             {% else %}
-            <p><a href="{% url registration_register %}">signup</a>, <a href="{% url auth_login %}">login</a></p>
+                <a href="{% url registration_register %}">signup</a>, <a href="{% url auth_login %}">login</a>
             {% endif %}
+            </p>
         </nav>
     </header>
 
