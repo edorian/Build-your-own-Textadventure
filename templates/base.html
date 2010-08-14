@@ -2,10 +2,17 @@
 <html>
 <head>
     <title>{% block title %}Textadv{% endblock %}</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css">
 </head>
 <body>
-{% block content %}
-    
-{% endblock %}
+    <nav>
+        {% if user.is_authenticated %}
+        <p>You're logged in as: {{ user.username }}, <a href="{% url auth_logout %}">logout</a></p>
+        {% else %}
+        <p><a href="{% url registration_register %}">signup</a>, <a href="{% url auth_login %}">login</a></p>
+        {% endif %}
+    </nav>
+
+    {% block content %}{% endblock %}
 </body>
 </html>
