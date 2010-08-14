@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Max
 from datetime import datetime
 from website.adventure.utils import LANGUAGES
 
@@ -35,12 +36,19 @@ class Location (models.Model):
     )
 
     adventure = models.ForeignKey("adventure.Adventure", related_name='locations')
+    number = models.PositiveIntegerField()
     title = models.CharField(max_length=50)
     description = models.TextField()
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=TYPE_NORMAL)
 
     def __unicode__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if self.number is None:
+            aggregate = self.adventure.locations.aggregate(Max('number'))
+            self.number = aggregate['number__max'] + 1
+        return super(Location, self).save(*args, **kwargs)
 
 class Achievements (models.Model):
     user = models.OneToOneField("auth.User")
