@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'django_extensions',
     'registration',
+    'south',
     'website.adventure',
     'website.profile',
 )
