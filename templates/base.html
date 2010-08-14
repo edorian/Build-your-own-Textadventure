@@ -49,13 +49,11 @@
         </nav>
     </header>
 
-    {% if messages or 1 %}
     <ul id="messages">
     {% for message in messages %}
         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
     </ul>
-    {% endif %}
 
     <div id="main">
         {% block content %}{% endblock %}
