@@ -2,14 +2,14 @@ from django import forms
 from website.adventure.models import Adventure, Location
 
 
-class AdventureForm(forms.ModelForm):
+class AdventureCreateForm(forms.ModelForm):
     class Meta:
         model = Adventure
         fields = ('name', 'description',)
 
     def __init__(self, *args, **kwargs):
         self.author = kwargs.pop('author', None)
-        super(AdventureForm, self).__init__(*args, **kwargs)
+        super(AdventureCreateForm, self).__init__(*args, **kwargs)
 
     def clean_name(self):
         name = self.cleaned_data['name']
@@ -26,12 +26,18 @@ class AdventureForm(forms.ModelForm):
         return name
 
     def save(self, commit=True, *args, **kwargs):
-        obj = super(AdventureForm, self).save(commit=False, *args, **kwargs)
+        obj = super(AdventureCreateForm, self).save(commit=False, *args, **kwargs)
         if self.instance.pk is None:
             obj.author = self.author
         if commit:
             obj.save()
         return obj
+
+
+class AdventureChangeForm(AdventureCreateForm):
+    class Meta:
+        model = Adventure
+        fields = ('name', 'description', 'published',)
 
 
 class LocationForm(forms.ModelForm):

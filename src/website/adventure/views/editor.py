@@ -4,20 +4,20 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
-from website.adventure.forms import AdventureForm, LocationForm
+from website.adventure.forms import AdventureCreateForm, AdventureChangeForm, LocationForm
 from website.adventure.models import Adventure, Location
 
 
 @login_required
 def adventure_create(request):
     if request.method == 'POST':
-        form = AdventureForm(request.POST, author=request.user)
+        form = AdventureCreateForm(request.POST, author=request.user)
         if form.is_valid():
             obj = form.save()
             messages.info(request, u"You have successfully created a new adventure.")
             return HttpResponseRedirect(reverse('location-create', args=(obj.pk,)))
     else:
-        form = AdventureForm(author=request.user)
+        form = AdventureCreateForm(author=request.user)
     return render_to_response('adventure/adventure_form.html', {
         'create': True,
         'form': form,
@@ -28,13 +28,13 @@ def adventure_create(request):
 def adventure_edit(request, object_id):
     obj = get_object_or_404(Adventure, pk=object_id, author=request.user)
     if request.method == 'POST':
-        form = AdventureForm(request.POST, request.FILES, instance=obj)
+        form = AdventureChangeForm(request.POST, request.FILES, instance=obj)
         if form.is_valid():
             obj = form.save()
             messages.info(request, u"You have successfully changed the adventure.")
             return HttpResponseRedirect(obj.get_absolute_url())
     else:
-        form = AdventureForm(instance=obj)
+        form = AdventureChangeForm(instance=obj)
     return render_to_response('adventure/adventure_form.html', {
         'create': False,
         'object': obj,
