@@ -1,4 +1,15 @@
 $(function () {
+    var markdown = new Showdown.converter().makeHtml;
+
+    /* escape html */
+    var escape = function (s) {
+        return s.
+            replace(/&/g, '&amp;').
+            replace(/</g, '&lt;').
+            replace(/"/g, '&quot;').
+            replace(/'/g, '&#39;').
+            replace(/>/g, '&gt;');
+    };
     var getLocationMarkup = function (location_id, text) {
         text = text || "";
         return '[' + text + '](#' + location_id + ')';
@@ -22,7 +33,22 @@ $(function () {
         }
     });
 
-    $('.wmd-preview a').live('mouseenter', function () {
+    var updatePreview = function () {
+        var value = $(this).val();
+        value = escape(value);
+        html = markdown(value);
+        $('.preview').html(html);
+        $('.preview a').attr('href', function (i, value) {
+            if (!value.match(/^#\d+$/)) {
+                return '';
+            }
+        });
+        $('.preview img').remove();
+    };
+    $('.editor textarea').bind('change keyup', updatePreview);
+    updatePreview.call($('.editor textarea').get(0));
+
+    $('.preview a').live('mouseenter', function () {
         var href = $(this).attr('href'),
             number = href.match(/^#(\d+)$/),
             rel;
@@ -36,7 +62,8 @@ $(function () {
         } else {
             rel = href;
         }
-        $(this).attr('title', 'Linking to: <strong>' + rel + '</strong>');
+        if (!rel) return;
+        $(this).attr('title', 'Linking to: <strong>' + escape(rel) + '</strong>');
         $(this).tooltip({
             position: 'bottom right'
         });

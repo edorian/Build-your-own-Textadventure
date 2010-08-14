@@ -1,8 +1,13 @@
+import re
+from datetime import datetime
+from BeautifulSoup import BeautifulSoup
+from markdown import markdown
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Max
-from datetime import datetime
 from django.db.models import Q, Avg
+from django.utils.encoding import force_unicode
+from django.utils.html import escape, mark_safe
 from website.adventure.utils import LANGUAGES
 
 
@@ -37,6 +42,25 @@ class Adventure (models.Model):
     def get_absolute_url(self):
         return 'adventure-detail', (self.pk,), {}
 
+    @property
+    def last_location(self):
+        if not hasattr(self, '_last_location'):
+            try:
+                self._last_location = self.locations.order_by('-number')[0]
+            except IndexError:
+                self._last_location = None
+        return self._last_location
+
+    @property
+    def first_location(self):
+        if not hasattr(self, '_first_location'):
+            try:
+                self._first_location = self.locations.order_by('number')[0]
+            except IndexError:
+                self._first_location = None
+        return self._first_location
+
+
 class Location (models.Model):
     TYPE_NORMAL = 0
     TYPE_WIN = 1
@@ -47,22 +71,43 @@ class Location (models.Model):
          (TYPE_LOOSE, 'Loose'),
     )
 
+    LOCATION_LINK_RE = re.compile(r'^#(\d+)$')
+
     adventure = models.ForeignKey("adventure.Adventure", related_name='locations')
     number = models.PositiveIntegerField()
     title = models.CharField(max_length=50)
     description = models.TextField()
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=TYPE_NORMAL)
 
+    class Meta:
+        ordering = ('adventure', 'number',)
+
     def __unicode__(self):
-        return self.title
+        return '#%s %s' % (self.number, self.title)
 
     @models.permalink
     def get_absolute_url(self):
         return 'adventure-locations', (self.adventure.pk, self.number), {}
 
+    def get_description_display(self):
+        text = escape(self.description)
+        html = markdown(text)
+        soup = BeautifulSoup(html)
+        # removing all images, they can contain javascript in the src attribute
+        for img in soup.findAll('img'):
+            img.extract()
+        for a in soup.findAll('a'):
+            a['href'] = self.get_location_link(a['href'])
+            if not a['href']:
+                a['class'] = 'broken'
+        html = force_unicode(soup)
+        return mark_safe(html)
+
     def get_location_link(self, link):
-        assert link[0] == '#'
-        number = link[1:]
+        match = self.LOCATION_LINK_RE.match(link)
+        if not match:
+            return ''
+        number = match.group()[1]
         # don't show error since we don't want a broken link to ruin the whole
         # adventure -> so do gracefully display nothing :)
         if not self.adventure.locations.filter(number=number).exists():

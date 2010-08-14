@@ -6,7 +6,9 @@
 
     {% if not create %}
     <ul>
-        <li><a href="{% url location-list object.pk %}">Edit locations</a></li>
+        {% if object.last_location %}
+        <li><a href="{% url location-edit object.pk object.last_location.pk %}">Edit locations</a></li>
+        {% endif %}
         <li><a href="{% url location-create object.pk %}">Create new locations</a></li>
     </ul>
     {% endif %}
@@ -14,7 +16,7 @@
     <form action="" method="post">{% csrf_token %}
         {{ form.as_p }}
         <p>
-        <input type="submit" value="create" />
+        <input type="submit" value="save" />
         </p>
     </form>
 {% endblock %}
