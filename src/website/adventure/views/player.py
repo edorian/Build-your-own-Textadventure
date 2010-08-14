@@ -33,5 +33,3 @@ def adventure_location(request, adventure_id, location_id, extra_context=None):
     context.update(extra_context)
     return render_to_response('adventure/adventure_location.html', context,
         context_instance=RequestContext(request))
-
-
