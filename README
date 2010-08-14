@@ -1,0 +1,7 @@
+To install the site do the standard buildout thing:
+
+    python bootstrap.py
+    bin/buildout
+
+Then you have the ``django-admin.py`` wrapper at ``bin/django``. To run the
+development server, do ``bin/django runserver``.

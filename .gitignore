@@ -1,0 +1,9 @@
+*.pyc
+.installed.cfg
+bin
+db.sqlite
+downloads
+develop-eggs
+eggs
+parts
+src/website/local_settings.py
