@@ -9,6 +9,13 @@ class Adventure (models.Model):
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
     language = models.CharField(max_length=5, choices=LANGUAGES, default="en")
+    
+    started_by_user = models.ManyToManyField(
+        "auth.User", related_name="started_adventure", blank=True
+    )
+    completed_by_user = models.ManyToManyField(
+        "auth.User", related_name="completed_adventure", blank=True
+    )
 
     def __unicode__(self):
         return self.name
@@ -31,4 +38,6 @@ class Location (models.Model):
     def __unicode__(self):
         return self.title
 
+class Achievements (models.Model):
+    user = models.OneToOneField("auth.User")
 
