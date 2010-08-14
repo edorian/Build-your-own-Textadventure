@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.http import Http404
-from website.adventure.models import Adventure, Location
+from website.adventure.models import Adventure, Location, Rating
 
 
 def adventure_list(request):
@@ -67,6 +67,16 @@ def adventure_location(request, adventure_id, location_number, extra_context=Non
         "adventure": adventure,
         "location": location,
     }
+    if request.user.is_authenticated():
+        context["RATING_CHOICES"] = Rating.RATING_CHOICES
+        try:
+            context["user_rating"] = Rating.objects.get(
+                adventure=adventure,
+                user=request.user
+            )
+        except Rating.DoesNotExist:
+            context["user_rating"] = -1;
+
     context.update(extra_context)
     return render_to_response('adventure/adventure_location.html', context,
         context_instance=RequestContext(request))
