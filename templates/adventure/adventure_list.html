@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block content %}i
+{% if only_own_adventures %}
+<h1>The Adventures you created</h1>
+{% else %}
 <h1>Browse all the Adventures our users created for you to play !</h1>
+{% endif %}
+
 <table cellpadding="0">
 <tr>
     <th>Adventure</th>
