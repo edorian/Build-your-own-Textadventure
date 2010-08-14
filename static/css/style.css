@@ -4,8 +4,8 @@ html {
     font-family:sans-serif;
 }
 
-a {
-    text-decoration:none;
+a, a:visited {
+    color:#0000ff;
 }
 
 p {
@@ -93,6 +93,7 @@ textarea {
 }
 #header nav a {
     color:#ffffff;
+    text-decoration:none;
 }
 
 #header nav ul {
