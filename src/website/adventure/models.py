@@ -20,6 +20,10 @@ class Adventure (models.Model):
     def __unicode__(self):
         return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return 'adventure-detail', (self.pk,), {}
+
 class Location (models.Model):
     TYPE_NORMAL = 0
     TYPE_WIN = 1
@@ -30,7 +34,7 @@ class Location (models.Model):
          (TYPE_LOOSE, 'Loose'),
     )
 
-    adventure = models.ForeignKey("adventure.Adventure")
+    adventure = models.ForeignKey("adventure.Adventure", related_name='locations')
     title = models.CharField(max_length=50)
     description = models.TextField()
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=TYPE_NORMAL)

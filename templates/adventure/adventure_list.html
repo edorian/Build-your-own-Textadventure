@@ -14,7 +14,10 @@
 </tr>
 {% for adventure in adventures %}
 <tr>
-    <td><a href="{% url adventure-detail adventure.id %}">{{ adventure }}</a></td>
+    <td>
+        <a href="{% url adventure-detail adventure.id %}">{{ adventure }}</a>
+        {% if adventure.author == user %}(<a href="{% url adventure-edit adventure.id %}">edit</a>){% endif %}
+    </td>
     <td>{{ adventure.author.username }}</td>
     <td>{{ adventure.get_language_display }}</td>
     <td>x</td>
@@ -22,4 +25,4 @@
 </tr>
 {% endfor %}
 </table>
-{% endblock %}"
+{% endblock %}
