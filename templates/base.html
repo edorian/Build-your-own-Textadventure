@@ -36,6 +36,7 @@
                 <li><a href="{% url index %}">Homepage</a></li>
                 <li><a href="{% url adventure-list %}">Adventures</a></li>
                 <li><a href="{% url adventure-create %}">Create your own adventure</a></li>
+                <li><a href="{% url adventure-list-my %}">My Adventures</a></li>
             </ul>
             <p id="usernav">
             {% if user.is_authenticated %}

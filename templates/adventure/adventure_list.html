@@ -3,7 +3,12 @@
 {% block content %}
 <ul>
 {% for object in object_list %}
-<li><a href="{% url adventure-detail object.id %}">{{ object }}</a></li>
+    <li>
+        <a href="{% url adventure-detail object.pk %}">{{ object }}</a>
+        {% if object.author == user %}
+        (<a href="{% url adventure-edit object.pk %}">edit</a>)
+        {% endif %}
+    </li>
 {% endfor %}
 </ul>
-{% endblock %}"
+{% endblock %}

@@ -1,10 +1,19 @@
-from website.adventure.models import Adventure, Location
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404 
 from django.template.loader import render_to_string
 from django.template import RequestContext
+from website.adventure.models import Adventure, Location
+
 
 def adventure_list(request):
     objects = Adventure.objects.filter(published=True)
+    return render_to_response('adventure/adventure_list.html', {
+        "object_list": objects,
+    }, context_instance=RequestContext(request))
+
+@login_required
+def adventure_list_my(request):
+    objects = Adventure.objects.filter(author=request.user)
     return render_to_response('adventure/adventure_list.html', {
         "object_list": objects,
     }, context_instance=RequestContext(request))

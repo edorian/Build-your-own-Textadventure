@@ -3,6 +3,14 @@
 
 {% block content %}
     <h1>Create new adventure</h1>
+
+    {% if not create %}
+    <ul>
+        <li><a href="{% url location-list object.pk %}">Edit locations</a></li>
+        <li><a href="{% url location-create object.pk %}">Create new locations</a></li>
+    </ul>
+    {% endif %}
+
     <form action="" method="post">{% csrf_token %}
         {{ form.as_p }}
         <p>
