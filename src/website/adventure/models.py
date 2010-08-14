@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from website.adventure.utils import LANGUAGES
 
 class Adventure (models.Model):
     name = models.CharField(max_length=50)
@@ -7,6 +8,7 @@ class Adventure (models.Model):
     created = models.DateTimeField(default=datetime.now)
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
+    language = models.CharField(max_length=5, choices=LANGUAGES, default="en")
 
     def __unicode__(self):
         return self.name
@@ -16,9 +18,9 @@ class Location (models.Model):
     TYPE_WIN = 1
     TYPE_LOOSE = 2
     TYPE_CHOICES = (
-        (TYPE_NORMAL, 'Normal'),
-        (TYPE_WIN, 'Win'),
-        (TYPE_LOOSE, 'Loose'),
+         (TYPE_NORMAL, 'Normal'),
+         (TYPE_WIN, 'Win'),
+         (TYPE_LOOSE, 'Loose'),
     )
 
     adventure = models.ForeignKey("adventure.Adventure")
@@ -28,3 +30,5 @@ class Location (models.Model):
 
     def __unicode__(self):
         return self.title
+
+
