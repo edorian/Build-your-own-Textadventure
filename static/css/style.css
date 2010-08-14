@@ -133,3 +133,22 @@ table.object-list td {
     font-size:1.5em;
     padding:0.5em 0;
 }
+
+#messages {
+    padding:0;
+    margin:0;
+    list-style-type:none;
+}
+#messages li {
+    padding:1em 3em;
+    background-color:#ccccff;
+}
+#messages li.error {
+    background-color:#ff9999;
+}
+#messages li.success {
+    background-color:#aaddaa;
+}
+#messages li.warning {
+    background-color:#ffff88;
+}
