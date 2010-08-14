@@ -126,3 +126,6 @@ INSTALLED_APPS = (
     'website.adventure',
     'website.profile',
 )
+FIXTURE_DIRS = (
+    join("src/website/fixtures"),
+)
