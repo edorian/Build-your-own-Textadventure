@@ -75,7 +75,7 @@ class Location (models.Model):
                 self._next_number = 1
             else:
                 aggregate = self.adventure.locations.aggregate(Max('number'))
-                self._next_number = aggregate['number__max'] + 1
+                self._next_number = (aggregate['number__max'] or 0) + 1
         return self._next_number
 
     def save(self, *args, **kwargs):
