@@ -1,26 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Browser all the Adventures our users created for you to play !</h1>
+<h1>Browse all the Adventures our users created for you to play !</h1>
 <table cellpadding="0">
 <tr>
     <th>Adventure</th>
     <th>Author</th>
     <th>Language</th>
     <th>Rating</th>
-    {% if user.is_authenicated %}
-    {# <th>Completed</th> TODO #}
+    {% if show_status %}
+    <th>Status</th>
     {% endif %}
 </tr>
-{% for object in object_list %}
+{% for adventure in adventures %}
 <tr>
     <td>
-        <a href="{% url adventure-detail object.id %}">{{ object }}</a>
-        {% if object.author == user %}(<a href="{% url adventure-edit object.id %}">edit</a>){% endif %}
+        <a href="{% url adventure-detail adventure.id %}">{{ adventure }}</a>
+        {% if adventure.author == user %}(<a href="{% url adventure-edit adventure.id %}">edit</a>){% endif %}
     </td>
-    <td>{{ object.author.username }}</td>
-    <td>{{ object.get_language_display }}</td>
+    <td>{{ adventure.author.username }}</td>
+    <td>{{ adventure.get_language_display }}</td>
     <td>x</td>
+    <td>{{ adventure.status }}</td>
 </tr>
 {% endfor %}
 </table>

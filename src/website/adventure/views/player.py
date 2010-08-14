@@ -6,10 +6,29 @@ from website.adventure.models import Adventure, Location
 
 
 def adventure_list(request):
-    objects = Adventure.objects.filter(published=True)
-    return render_to_response('adventure/adventure_list.html', {
-        "object_list": objects,
-    }, context_instance=RequestContext(request))
+    adventures = Adventure.objects.filter(published=True)
+    context = {
+        "adventures": adventures
+    }
+    if request.user.is_authenticated():
+        context["show_status"] = True
+        completed_adventures = set(
+            request.user.completed_adventure.all() & adventures
+        )
+        started_adventures = set(
+            request.user.started_adventure.all() & adventures
+        )
+        for adventure in adventures:
+            if(adventure in completed_adventures):
+                adventure.status = "completed"
+            elif(adventure in started_adventures):
+                adventure.status = "played"
+            else:
+                adventure.status = "unplayed"
+
+
+    return render_to_response('adventure/adventure_list.html', context,
+        context_instance=RequestContext(request))
 
 @login_required
 def adventure_list_my(request):
@@ -25,6 +44,11 @@ def adventure_detail(request, object_id):
     }, context_instance=RequestContext(request))
 
 def adventure_start(request, object_id):
+    object = Adventure.objects.get(pk=object_id)
+    if request.user.is_authenticated():
+        if not object.started_by_user.filter(pk=request.user.id).exists():
+            object.started_by_user.add(request.user)
+
     startmessage = render_to_string('adventure/adventure_start.html', {
         "object": object_id,
     }, context_instance=RequestContext(request))
