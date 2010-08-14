@@ -37,7 +37,7 @@ textarea {
     height:20em;
 }
 
-.wmd-preview {
+.preview {
     border:solid 1px #d0d0d0;
     padding:1em;
     width:50em;
@@ -70,6 +70,10 @@ textarea {
     border:solid 1px #aaaa88;
     background-color:#ffffdd;
     padding:0.5em;
+}
+
+.broken {
+    text-decoration:line-through;
 }
 
 #header h1 {

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load adventure_tags %}
 
 
 {% if user.is_authenticated %}
@@ -40,7 +39,7 @@ div.rating-cancel {
 {% endif %}
 
 <h2>{{ location }}</h2>
-<p>{{ location|showtext }}</p>
+<p>{{ location.get_description_display }}</p>
 {% if location.type != location.TYPE_NORMAL %}
 <hr>
 {% endif %}
