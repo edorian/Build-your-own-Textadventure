@@ -43,11 +43,23 @@ textarea {
     width:50em;
 }
 
+.editor {
+    clear:both;
+}
 .editor .input {
     width:55em;
+    min-height:20em;
+    float:left;
 }
 .editor .locations {
-    width:10em,
+    max-height:20em;
+    overflow:auto;
+}
+.editor .locations a {
+    cursor:pointer;
+}
+.editor .help_text {
+    clear:both;
 }
 
 .errorlist {

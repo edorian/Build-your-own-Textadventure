@@ -36,6 +36,10 @@
                     <a rel="{{ location.number }}" class="location">#{{ location.number }} {{ location }}</a><br />
                 {% endfor %}
             </div>
+            <p class="help_text">
+                You can use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> to style the content. See below for a preview of your text.<br />
+                Drag pages from the right into the textbox to create links to pages.
+            </p>
             {{ form.description.errors }}
         </div>
         <div class="field">
