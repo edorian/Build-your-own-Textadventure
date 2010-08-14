@@ -16,7 +16,7 @@
     <form action="" method="post">{% csrf_token %}
         {{ form.as_p }}
         <p>
-        <input type="submit" value="{% if create %}create{% else %}edit{% endif %}" />
+        <input type="submit" value="save" />
         </p>
     </form>
 {% endblock %}
