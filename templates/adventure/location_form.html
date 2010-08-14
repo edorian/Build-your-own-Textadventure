@@ -35,6 +35,10 @@
                 {% for location in adventure.locations.all %}
                     <a rel="{{ location.number }}" class="location">#{{ location.number }} {{ location }}</a><br />
                 {% endfor %}
+    
+                <a rel="{{ object.get_next_number|add:0 }}" class="location">#{{ object.get_next_number|add:0 }} <em>next page you create</em></a><br />
+                <a rel="{{ object.get_next_number|add:1 }}" class="location">#{{ object.get_next_number|add:1 }} <em>second next page you create</em></a><br />
+                <a rel="{{ object.get_next_number|add:2 }}" class="location">#{{ object.get_next_number|add:2 }} <em>third next page you create</em></a><br />
             </div>
             <p class="help_text">
                 You can use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> to style the content. See below for a preview of your text.<br />

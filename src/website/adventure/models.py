@@ -55,10 +55,18 @@ class Location (models.Model):
     def __unicode__(self):
         return self.title
 
+    def get_next_number(self):
+        if not hasattr(self, '_next_number'):
+            if self.adventure is None:
+                self._next_number = 1
+            else:
+                aggregate = self.adventure.locations.aggregate(Max('number'))
+                self._next_number = aggregate['number__max'] + 1
+        return self._next_number
+
     def save(self, *args, **kwargs):
         if not self.number:
-            aggregate = self.adventure.locations.aggregate(Max('number'))
-            self.number = aggregate['number__max'] + 1
+            self.number = self.get_next_number()
         return super(Location, self).save(*args, **kwargs)
 
 class Achievements (models.Model):
