@@ -43,18 +43,9 @@ def adventure_edit(request, object_id):
 
 
 @login_required
-def location_list(request, adventure_id):
-    adventure = get_object_or_404(Adventure, pk=adventure_id, author=request.user)
-    object_list = adventure.locations.all()
-    return render_to_response('adventure/location_list.html', {
-        'adventure': adventure,
-        'object_list': object_list,
-    }, context_instance=RequestContext(request))
-
-
-@login_required
 def location_create(request, adventure_id):
     return location_form(request, adventure_id)
+
 
 @login_required
 def location_edit(request, adventure_id, location_id):
@@ -80,7 +71,7 @@ def location_form(request, adventure_id, location_id=None):
                     reverse('location-create', kwargs={'adventure_id': adventure.pk}))
             else:
                 return HttpResponseRedirect(
-                    reverse('location-list', kwargs={'adventure_id': adventure.pk}))
+                    reverse('adventure-edit', args=(adventure.pk,)))
     else:
         form = LocationForm(instance=location, adventure=adventure)
 
