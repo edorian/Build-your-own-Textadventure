@@ -21,4 +21,21 @@ $(function () {
             }
         }
     });
+
+    $('.wmd-preview a').live('mouseenter', function () {
+        var href = $(this).attr('href');
+        var number = href.match(/^#(\d+)$/);
+        var rel;
+        if (number) {
+            rel = $('.location[rel=' + number[1] + ']').text();
+        } else {
+            rel = href;
+        }
+        $(this).attr('title', 'Linking to: <strong>' + rel + '</strong>');
+        $(this).tooltip({
+            position: 'bottom right'
+        });
+        $(this).data('tooltip').show();
+        $(this).attr('title', '');
+    });
 });

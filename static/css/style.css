@@ -54,6 +54,12 @@ textarea {
     color:#ff0000;
 }
 
+.tooltip {
+    border:solid 1px #aaaa88;
+    background-color:#ffffdd;
+    padding:0.5em;
+}
+
 #header h1 {
     font-size:3em;
     padding:0.2em;
