@@ -15,6 +15,7 @@
   {% endcomment %}
 
   <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
   <link rel="stylesheet" media="handheld" href="{{ STATIC_URL }}css/handheld.css">
   {% block extra_css %}{% endblock %}
 
@@ -28,12 +29,12 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
 
   <div id="container">
-    <header>
+    <header id="header">
         <h1>txtadv</h1>
-        <nav>
+        <nav class="clearfix">
             <ul>
                 <li><a href="{% url index %}">Homepage</a></li>
-                <li><a href="#">Adventures</a></li>
+                <li><a href="{% url adventure-list %}">Adventures</a></li>
                 <li><a href="#">Create your own adventure</a></li>
             </ul>
             <p id="usernav">
@@ -42,7 +43,6 @@
             {% else %}
                 <a href="{% url registration_register %}">signup</a>, <a href="{% url auth_login %}">login</a>
             {% endif %}
-            <a href="{% url adventure-list %}">List Adventures</a> 
             </p>
         </nav>
     </header>

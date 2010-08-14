@@ -6,10 +6,6 @@
     <ul>
         <li>Username: {{ user.username }}</li>
         <li>Email: {{ user.email }}</li>
+        <li><a href="{% url auth_password_change %}">change password</a></li>
     </ul>
-    <nav>
-        <ul>
-            <li><a href="{% url auth_password_change %}">change password</a></li>
-        </ul>
-    </nav>
 {% endblock %}

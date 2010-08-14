@@ -1,0 +1,53 @@
+html {
+    color:#222222;
+    background-color:#ffffff;
+    font-family:sans-serif;
+}
+
+a {
+    text-decoration:none;
+}
+
+#header h1 {
+    font-size:3em;
+    padding:0.2em;
+}
+
+#header nav {
+    padding:0 1em;
+    display:block;
+    background-color:#000000;
+    color:#aaaaaa;
+}
+#header nav a {
+    color:#ffffff;
+}
+
+#header nav ul {
+    float:left;
+}
+#header nav ul li {
+    float:left;
+}
+#header nav ul li a {
+    display:block;
+    padding:0.5em;
+}
+#header nav ul li a:hover {
+    background-color:#ffffff;
+    color:#000000;
+}
+
+#header nav p {
+    padding:0.5em;
+    float:right;
+}
+
+#main {
+    padding:2em;
+}
+
+#main h1 {
+    font-size:1.5em;
+    padding:0.5em 0;
+}
