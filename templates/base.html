@@ -11,6 +11,7 @@
         {% else %}
         <p><a href="{% url registration_register %}">signup</a>, <a href="{% url auth_login %}">login</a></p>
         {% endif %}
+        <a href="{% url adventure-list %}">List Adventures</a>
     </nav>
 
     {% block content %}{% endblock %}
