@@ -23,11 +23,16 @@ $(function () {
     });
 
     $('.wmd-preview a').live('mouseenter', function () {
-        var href = $(this).attr('href');
-        var number = href.match(/^#(\d+)$/);
-        var rel;
+        var href = $(this).attr('href'),
+            number = href.match(/^#(\d+)$/),
+            rel;
         if (number) {
-            rel = $('.location[rel=' + number[1] + ']').text();
+            rel = $('.location[rel=' + number[1] + ']');
+            if (rel.length == 0) {
+                rel = '#' + number[1];
+            } else {
+                rel = rel.text();
+            }
         } else {
             rel = href;
         }
