@@ -5,7 +5,7 @@ from website.adventure.models import Adventure, Location
 class AdventureCreateForm(forms.ModelForm):
     class Meta:
         model = Adventure
-        fields = ('name', 'description',)
+        fields = ('name', 'description', 'language')
 
     def __init__(self, *args, **kwargs):
         self.author = kwargs.pop('author', None)
@@ -37,7 +37,7 @@ class AdventureCreateForm(forms.ModelForm):
 class AdventureChangeForm(AdventureCreateForm):
     class Meta:
         model = Adventure
-        fields = ('name', 'description', 'published',)
+        fields = ('name', 'description', 'language', 'published',)
 
 
 class LocationForm(forms.ModelForm):
