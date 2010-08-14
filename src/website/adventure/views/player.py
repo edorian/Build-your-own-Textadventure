@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404 
 from django.template.loader import render_to_string
 from django.template import RequestContext
+from django.http import Http404
 from website.adventure.models import Adventure, Location
 
 
@@ -34,7 +35,8 @@ def adventure_list(request):
 def adventure_list_my(request):
     objects = Adventure.objects.filter(author=request.user)
     return render_to_response('adventure/adventure_list.html', {
-        "object_list": objects,
+        "adventures": objects,
+        "only_own_adventures": True,
     }, context_instance=RequestContext(request))
 
 def adventure_detail(request, object_id):
@@ -44,7 +46,9 @@ def adventure_detail(request, object_id):
     }, context_instance=RequestContext(request))
 
 def adventure_start(request, object_id):
-    object = Adventure.objects.get(pk=object_id)
+    queryset = Adventure.objects.public(request)
+    object = get_object_or_404(queryset, pk=object_id)
+
     if request.user.is_authenticated():
         if not object.started_by_user.filter(pk=request.user.id).exists():
             object.started_by_user.add(request.user)

@@ -1,6 +1,15 @@
 from django.db import models
 from datetime import datetime
+from django.db.models import Q
 from website.adventure.utils import LANGUAGES
+
+
+class AdventurePublicManager(models.Manager):
+    def public(self, request):
+        if request.user.is_authenticated():
+            return self.filter(Q(published=True) | Q(author=request.user))
+        return self.filter(published=True)
+
 
 class Adventure (models.Model):
     name = models.CharField(max_length=50)
@@ -16,6 +25,8 @@ class Adventure (models.Model):
     completed_by_user = models.ManyToManyField(
         "auth.User", related_name="completed_adventure", blank=True
     )
+
+    objects = AdventurePublicManager()
 
     def __unicode__(self):
         return self.name
