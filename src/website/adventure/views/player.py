@@ -32,7 +32,7 @@ def adventure_list(request, adventures=None, extra_context=None):
                 adventure.status = "unplayed"
 
     if extra_context is not None:
-        context.update(extra_content)
+        context.update(extra_context)
 
     return render_to_response('adventure/adventure_list.html', context,
         context_instance=RequestContext(request))
