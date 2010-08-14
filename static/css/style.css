@@ -12,6 +12,44 @@ p {
     padding:0.5em 0;
 }
 
+/*
+ * Forms
+ */
+
+.field {
+    clear:both;
+    margin:1em 0;
+}
+
+.label {
+    font-weight:bold;
+}
+.input {
+    
+}
+
+input[type=text], input[type=password] {
+    width:30em;
+}
+
+textarea {
+    width:50em;
+    height:20em;
+}
+
+.wmd-preview {
+    border:solid 1px #d0d0d0;
+    padding:1em;
+    width:50em;
+}
+
+.editor .input {
+    width:55em;
+}
+.editor .locations {
+    width:10em,
+}
+
 .errorlist {
     color:#ff0000;
 }
