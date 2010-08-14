@@ -56,7 +56,7 @@ class Location (models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if self.number is None:
+        if not self.number:
             aggregate = self.adventure.locations.aggregate(Max('number'))
             self.number = aggregate['number__max'] + 1
         return super(Location, self).save(*args, **kwargs)

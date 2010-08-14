@@ -33,7 +33,7 @@
             </div>
             <div class="locations">
                 {% for location in adventure.locations.all %}
-                    <a rel="{{ location.pk }}" class="location">#{{ location.pk }} {{ location }}</a><br />
+                    <a rel="{{ location.number }}" class="location">#{{ location.number }} {{ location }}</a><br />
                 {% endfor %}
             </div>
             {{ form.description.errors }}
