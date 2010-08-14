@@ -37,9 +37,12 @@
                     <a rel="{{ location.number }}" class="location">#{{ location.number }} {{ location }}</a><br />
                 {% endfor %}
 
-                <a rel="{{ object.get_next_number|add:0 }}" class="location">#{{ object.get_next_number|add:0 }} <em>next page you create</em></a><br />
-                <a rel="{{ object.get_next_number|add:1 }}" class="location">#{{ object.get_next_number|add:1 }} <em>second next page you create</em></a><br />
-                <a rel="{{ object.get_next_number|add:2 }}" class="location">#{{ object.get_next_number|add:2 }} <em>third next page you create</em></a><br />
+                {% if create %}
+                <a rel="{{ object.get_next_number }}" class="location">#{{ object.get_next_number }} <em>current page</em></a><br />
+                {% endif %}
+                <a rel="{{ object.get_next_number|add:0|add:create }}" class="location">#{{ object.get_next_number|add:0|add:create }} <em>next page you create</em></a><br />
+                <a rel="{{ object.get_next_number|add:1|add:create }}" class="location">#{{ object.get_next_number|add:1|add:create }} <em>second next page you create</em></a><br />
+                <a rel="{{ object.get_next_number|add:2|add:create }}" class="location">#{{ object.get_next_number|add:2|add:create }} <em>third next page you create</em></a><br />
             </div>
             <p class="help_text">
                 You can use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> to style the content. See below for a preview of your text.<br />
