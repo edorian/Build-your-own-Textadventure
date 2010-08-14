@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ adventure }}</h1>
+<hr>
+
+{% if extra_content %}
+{{ extra_content }}
+{% endif %}
+
+<h2>{{ location }}</h2>
+<p>{{ location.description }}</p>
+{% if location.type != location.TYPE_NORMAL %}
+<hr>
+{% endif %}
+
+{% if location.type == location.TYPE_WIN %}
+<strong>YOU GOD SIR, ARE A WINNER</strong>
+{% endif %}
+
+{% if location.type == location.TYPE_LOOSE %}
+<strong>YOUR JOURNEY HAS COME TO AN END OH NOBLE ONE ! A RATHER UNFORUNATE ONE THAT IS !</strong>
+<a href="{% url adventure-start adventure.id %}">Restart Adventure</a>
+{% endif %}
+
+{% endblock %}"

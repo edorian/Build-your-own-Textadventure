@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ object }}</h1>
+<p>{{ object.description }}</p>
+<a href="{% url adventure-start object.id %}">Start Adventure</a>
+{% endblock %}"
