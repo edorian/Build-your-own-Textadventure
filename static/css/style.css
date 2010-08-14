@@ -52,7 +52,8 @@ textarea {
     float:left;
 }
 .editor .locations {
-    max-height:20em;
+    max-width:20em;
+    max-height:25em;
     overflow:auto;
 }
 .editor .locations a {
@@ -62,6 +63,9 @@ textarea {
     clear:both;
 }
 
+.help_text {
+    color:#888888;
+}
 .errorlist {
     color:#ff0000;
 }

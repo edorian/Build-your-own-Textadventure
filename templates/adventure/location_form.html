@@ -19,40 +19,45 @@
     <form action="" method="post">{% csrf_token %}
         <div class="field">
             <div class="label">{{ form.title.label_tag }}:</div>
-            <div class="input">{{ form.title }}</div>
             {{ form.title.errors }}
-        </div>
-        <div class="field">
-            <div class="label">{{ form.type.label_tag }}:</div>
-            <div class="input">{{ form.type }}</div>
-            {{ form.type.errors }}
+            <div class="input">{{ form.title }}</div>
         </div>
         <div class="field editor">
             <div class="label">{{ form.description.label_tag }}:</div>
+            {{ form.description.errors }}
             <div class="input">
                 {{ form.description }}
             </div>
             <div class="locations">
-                {% for location in adventure.locations.all %}
-                    <a href="{% url location-edit adventure.pk location.pk %}" rel="{{ location.number }}" class="location">{{ location }}</a><br />
-                {% endfor %}
+                <p class="help_text">Drag page names below into the textbox to create links. Click the pages to edit them.</p>
 
-                {% if create %}
-                <a rel="{{ object.get_next_number }}" class="location">#{{ object.get_next_number }} <em>current page</em></a><br />
-                {% endif %}
-                <a rel="{{ object.get_next_number|add:0|add:create }}" class="location">#{{ object.get_next_number|add:0|add:create }} <em>next page you create</em></a><br />
-                <a rel="{{ object.get_next_number|add:1|add:create }}" class="location">#{{ object.get_next_number|add:1|add:create }} <em>second next page you create</em></a><br />
-                <a rel="{{ object.get_next_number|add:2|add:create }}" class="location">#{{ object.get_next_number|add:2|add:create }} <em>third next page you create</em></a><br />
+                <p>
+                    {% if create %}
+                    <a rel="{{ object.get_next_number }}" class="location">#{{ object.get_next_number }} <em>current page</em></a><br />
+                    {% endif %}
+                    <a rel="{{ object.get_next_number|add:0|add:create }}" class="location">#{{ object.get_next_number|add:0|add:create }} <em>next page you create</em></a><br />
+                    <a rel="{{ object.get_next_number|add:1|add:create }}" class="location">#{{ object.get_next_number|add:1|add:create }} <em>second next page you create</em></a><br />
+                    <a rel="{{ object.get_next_number|add:2|add:create }}" class="location">#{{ object.get_next_number|add:2|add:create }} <em>third next page you create</em></a><br />
+                </p>
+
+                <p>
+                    {% for location in adventure.locations.all %}
+                    <a href="{% url location-edit adventure.pk location.pk %}" rel="{{ location.number }}" class="location">{{ location }}</a><br />
+                    {% endfor %}
+                </p>
             </div>
             <p class="help_text">
-                You can use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> to style the content. See below for a preview of your text.<br />
-                Drag pages from the right into the textbox to create links to pages.
+                You can use <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> to style the content. See below for a preview of your text.
             </p>
-            {{ form.description.errors }}
         </div>
         <div class="field">
             <div class="label">Preview:</div>
             <div class="preview"></div>
+        </div>
+        <div class="field">
+            <div class="label">{{ form.type.label_tag }}:</div>
+            {{ form.type.errors }}
+            <div class="input">{{ form.type }}</div>
         </div>
         <p>
             <input type="submit" name="_continue" value="save and continue editing" />
