@@ -56,10 +56,18 @@ class Location (models.Model):
     def __unicode__(self):
         return self.title
 
+    @models.permalink
+    def get_absolute_url(self):
+        return 'adventure-locations', (self.adventure.pk, self.number), {}
+
     def get_location_link(self, link):
         assert link[0] == '#'
-        link = link[1:]
-        return reverse('adventure-location', args=(self.adventure.pk, link))
+        number = link[1:]
+        # don't show error since we don't want a broken link to ruin the whole
+        # adventure -> so do gracefully display nothing :)
+        if not self.adventure.locations.filter(number=number).exists():
+            return ''
+        return reverse('adventure-location', args=(self.adventure.pk, number))
 
     def get_next_number(self):
         if not hasattr(self, '_next_number'):
