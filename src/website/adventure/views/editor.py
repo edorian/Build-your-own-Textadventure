@@ -86,7 +86,7 @@ def location_form(request, adventure_id, location_id=None):
 
     context = {
         'create': location is None,
-        'object': location,
+        'object': location or Location(adventure=adventure),
         'form': form,
         'adventure': adventure,
     }

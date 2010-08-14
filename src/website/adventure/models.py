@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Max
 from datetime import datetime
@@ -55,10 +56,31 @@ class Location (models.Model):
     def __unicode__(self):
         return self.title
 
+    @models.permalink
+    def get_absolute_url(self):
+        return 'adventure-locations', (self.adventure.pk, self.number), {}
+
+    def get_location_link(self, link):
+        assert link[0] == '#'
+        number = link[1:]
+        # don't show error since we don't want a broken link to ruin the whole
+        # adventure -> so do gracefully display nothing :)
+        if not self.adventure.locations.filter(number=number).exists():
+            return ''
+        return reverse('adventure-location', args=(self.adventure.pk, number))
+
+    def get_next_number(self):
+        if not hasattr(self, '_next_number'):
+            if self.adventure is None:
+                self._next_number = 1
+            else:
+                aggregate = self.adventure.locations.aggregate(Max('number'))
+                self._next_number = aggregate['number__max'] + 1
+        return self._next_number
+
     def save(self, *args, **kwargs):
         if not self.number:
-            aggregate = self.adventure.locations.aggregate(Max('number'))
-            self.number = aggregate['number__max'] + 1
+            self.number = self.get_next_number()
         return super(Location, self).save(*args, **kwargs)
 
 class RatingManager (models.Manager):

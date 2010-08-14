@@ -56,13 +56,13 @@ def adventure_start(request, object_id):
     startmessage = render_to_string('adventure/adventure_start.html', {
         "object": object_id,
     }, context_instance=RequestContext(request))
-    startlocation = 1; # default start location for now
+    startlocation = object.locations.order_by('number')[0].number
     return adventure_location(request, object_id, startlocation, {"extra_content": startmessage})
 
-def adventure_location(request, adventure_id, location_id, extra_context=None):
+def adventure_location(request, adventure_id, location_number, extra_context=None):
     extra_context = extra_context or {}
     adventure = get_object_or_404(Adventure, pk=adventure_id)
-    location = get_object_or_404(Location, pk=location_id)
+    location = get_object_or_404(Location, adventure=adventure, number=location_number)
     context = {
         "adventure": adventure,
         "location": location,
