@@ -2,34 +2,41 @@
 
 
 {% if user.is_authenticated %}
-{% block extra_js %}
-<script src="{{ STATIC_URL }}js/jquery.form.js"></script>
-<script src="{{ STATIC_URL }}js/star-rating/jquery.MetaData.js"></script> 
-<script src="{{ STATIC_URL }}js/star-rating/jquery.rating.js"></script>
-{% endblock %}
-{% block extra_css %}
-<link rel="stylesheet" href="{{ STATIC_URL }}js/star-rating/jquery.rating.css"></link>
-{% endblock %}
+    {% block extra_js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.form.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/star-rating/jquery.MetaData.js"></script> 
+    <script type="text/javascript" src="{{ STATIC_URL }}js/star-rating/jquery.rating.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(".auto-submit-star").rating({
+            callback: function(value) {
+                $(this.form).ajaxSubmit(function() {
+                    alert("GOO");
+                })
+            }
+        });
+    });
+    </script>
+    {% endblock %}
+    {% block extra_css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}js/star-rating/jquery.rating.css"></link>
+    {% endblock %}
 {% endif %}
 
 {% block content %}
 
 <h1 style="float: left">{{ adventure }}</h1>
 {% if user.is_authenticated %}
-<style type="test/css">
-div.rating-cancel {
-    display: none !Important;
-}
-</style>
 <div style="float: right">
     Rate this Adventure: <br />
     <form action="{% url adventure-rating adventure.id %}" method="POST" id="rating">
-        <input name="rating" type="radio" class="star" />
-        <input name="rating" type="radio" class="star" />
-        <input name="rating" type="radio" class="star" />
-        <input name="rating" type="radio" class="star" />
-        <input name="rating" type="radio" class="star" />
+    {% for rating in RATING_CHOICES %}
+        <input name="rating" type="radio" class="auto-submit-star" value="{{ rating.0 }}" title="{{ rating.1 }}"
+            {% if rating.0 == user_rating %}checked="checked"{% endif %}
+        />
+    {% endfor %}
     </form>
+    <span id="hover-test">Oh hai ?</span>
 </div>
 {% endif %}
 <hr style="clear:both">

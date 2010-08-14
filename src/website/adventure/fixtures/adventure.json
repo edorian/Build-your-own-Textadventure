@@ -54,7 +54,7 @@
     "pk": 5, 
     "model": "adventure.location", 
     "fields": {
-      "description": "You make up your mind and head into the side street.\r\n\r\n_No you can't has cheezburger_ are the last words you hear before over nine thousands cat jump you.", 
+      "description": "You make up your mind and head into the side street.\r\n\r\n_No you can't has cheezburger_ are the last words you hear before over nine thousands cats jump you.", 
       "title": "Catfight", 
       "type": 2, 
       "adventure": 1, 
@@ -65,7 +65,7 @@
     "pk": 6, 
     "model": "adventure.location", 
     "fields": {
-      "description": "You reach the front door of _your_ **House** and while you are no **Doctor** you sure have no problem sliding the key into the lock... apart from the fact that you don't have a key in your hand.\r\n\r\nIn your current condition [kicking the door open](#5) and [sleeping on the doormat](#6) seem like the best options.", 
+      "description": "You reach the front door of _your_ **House** and while you are no **Doctor** you sure have no problem sliding the key into the lock... apart from the fact that you don't have a key in your hand.\r\n\r\nIn your current condition [kicking the door open](#6) and [sleeping on the doormat](#7) seem like the best options.", 
       "title": "The front Door", 
       "type": 0, 
       "adventure": 1, 
