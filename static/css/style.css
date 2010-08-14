@@ -140,15 +140,23 @@ table.object-list td {
     list-style-type:none;
 }
 #messages li {
-    padding:1em 3em;
+    padding:1em 5.5em;
+    background-repeat:no-repeat;
+    background-position:2em center;
+}
+#messages li.info {
     background-color:#ccccff;
+    background-image: url(icons/32x32/info.png);
 }
 #messages li.error {
     background-color:#ff9999;
+    background-image: url(icons/32x32/error.png);
 }
 #messages li.success {
     background-color:#aaddaa;
+    background-image: url(icons/32x32/success.png);
 }
 #messages li.warning {
     background-color:#ffff88;
+    background-image: url(icons/32x32/warning.png);
 }
