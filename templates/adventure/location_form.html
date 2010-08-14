@@ -1,6 +1,13 @@
 {% extends "adventure/base.html" %}
 
 
+{% block extra_js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.fieldselection.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/wmd/wmd.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/editor.js"></script>
+{% endblock %}
+
+
 {% block content %}
     {% if create %}
     <h1>Create new location for adventure {{ adventure }}</h1>
@@ -9,11 +16,36 @@
     {% endif %}
     <a href="{% url location-list adventure.pk %}">Back to location overview</a>
     <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
+        <div class="field">
+            <div class="label">{{ form.title.label_tag }}:</div>
+            <div class="input">{{ form.title }}</div>
+            {{ form.title.errors }}
+        </div>
+        <div class="field">
+            <div class="label">{{ form.type.label_tag }}:</div>
+            <div class="input">{{ form.type }}</div>
+            {{ form.type.errors }}
+        </div>
+        <div class="field editor">
+            <div class="label">{{ form.description.label_tag }}:</div>
+            <div class="input">
+                {{ form.description }}
+            </div>
+            <div class="locations">
+                {% for location in adventure.locations.all %}
+                    <a rel="{{ location.pk }}" class="location">#{{ location.pk }} {{ location }}</a><br />
+                {% endfor %}
+            </div>
+            {{ form.description.errors }}
+        </div>
+        <div class="field">
+            <div class="label">Preview:</div>
+            <div class="wmd-preview"></div>
+        </div>
         <p>
-        <input type="submit" name="_continue" value="save and continue editing" />
-        <input type="submit" name="_new" value="save and create another location" />
-        <input type="submit" name="_save" value="save and go back to location overview" />
+            <input type="submit" name="_continue" value="save and continue editing" />
+            <input type="submit" name="_new" value="save and create another location" />
+            <input type="submit" name="_save" value="save and go back to location overview" />
         </p>
     </form>
 {% endblock %}
