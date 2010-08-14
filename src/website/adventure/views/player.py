@@ -1,15 +1,19 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response, get_object_or_404 
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template.loader import render_to_string
 from django.template import RequestContext
-from django.http import Http404
+from django.http import Http404, HttpResponse
+from django.db.models import Avg
 from website.adventure.models import Adventure, Location, Rating
 
 
-def adventure_list(request):
-    adventures = Adventure.objects.filter(published=True)
+def adventure_list(request, adventures=None, extra_context=None):
+    if adventures is None:
+        adventures = Adventure.objects.filter(published=True)
+    adventures = adventures.annotate(avg_rating=Avg('rating__rating'))
+
     context = {
-        "adventures": adventures
+        "adventures": adventures,
     }
     if request.user.is_authenticated():
         context["show_status"] = True
@@ -27,17 +31,16 @@ def adventure_list(request):
             else:
                 adventure.status = "unplayed"
 
+    if extra_context is not None:
+        context.update(extra_content)
 
     return render_to_response('adventure/adventure_list.html', context,
         context_instance=RequestContext(request))
 
 @login_required
 def adventure_list_my(request):
-    objects = Adventure.objects.filter(author=request.user)
-    return render_to_response('adventure/adventure_list.html', {
-        "adventures": objects,
-        "only_own_adventures": True,
-    }, context_instance=RequestContext(request))
+    adventures = Adventure.objects.filter(author=request.user)
+    return adventure_list(request, adventures, {"only_own_adventures": True});
 
 def adventure_detail(request, object_id):
     object = Adventure.objects.get(pk=object_id)
@@ -82,6 +85,17 @@ def adventure_location(request, adventure_id, location_number, extra_context=Non
         context_instance=RequestContext(request))
 
 @login_required
-def adventure_rating(request, rating):
-    pass
+def adventure_rating(request, adventure_id):
+    adventure = get_object_or_404(Adventure, pk=adventure_id)
+    rating, created = Rating.objects.get_or_create(adventure=adventure, user=request.user, defaults={"rating": -1})
+
+    try:
+        if rating.rating != int(request.POST["rating"]):
+            rating.rating = int(request.POST["rating"])
+            rating.save();
+            return HttpResponse("update")
+        return HttpResponse("ok")
+    except (ValueError, KeyError):
+        return HttpResponse("error", status_code=401);
+
 

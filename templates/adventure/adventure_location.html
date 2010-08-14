@@ -10,8 +10,10 @@
     $(document).ready(function() {
         $(".auto-submit-star").rating({
             callback: function(value) {
-                $(this.form).ajaxSubmit(function() {
-                    alert("GOO");
+                $(this.form).ajaxSubmit(function(response) {
+                    if(response == "update") {
+                        $("#messages").append("<li class='success'>Thank you for your Feedback !</li>");
+                    }
                 })
             }
         });
@@ -36,7 +38,6 @@
         />
     {% endfor %}
     </form>
-    <span id="hover-test">Oh hai ?</span>
 </div>
 {% endif %}
 <hr style="clear:both">

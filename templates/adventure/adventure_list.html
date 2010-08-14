@@ -32,7 +32,7 @@
             </td>
             <td>{{ adventure.author.username }}</td>
             <td>{{ adventure.get_language_display }}</td>
-            <td>x</td>
+            <td>{{ adventure.avg_rating }}</td>
             {% if show_status %}
             <td>{{ adventure.status }}</td>
             {% endif %}
