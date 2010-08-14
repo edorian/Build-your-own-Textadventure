@@ -3,5 +3,9 @@ To install the site do the standard buildout thing:
     python bootstrap.py
     bin/buildout
 
+To setup demo Data including a User (demo/demo) and some example Adventures please use:
+
+    bin/django loaddata auth adventure
+
 Then you have the ``django-admin.py`` wrapper at ``bin/django``. To run the
 development server, do ``bin/django runserver``.
