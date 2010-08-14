@@ -23,6 +23,9 @@ urlpatterns = patterns('',
     url(r'^adventure/location/(?P<adventure_id>\d+)/(?P<location_id>\d+)/$',
         "website.adventure.views.player.adventure_location",
         name="adventure-location"),
+    url(r'^adventure/rate/',
+        "website.adventure.views.player.adventure_rating",
+        name="adventure-rating"),
 
     # editor
     url(r'^adventure/create/$',
