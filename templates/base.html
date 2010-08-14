@@ -1,19 +1,63 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>{# HTML5 boilerplate mostly stolen from http://github.com/paulirish/html5-boilerplate/blob/master/index.html #}
+<html lang="en" class="no-js">
 <head>
-    <title>{% block title %}Textadv{% endblock %}</title>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css">
-</head>
-<body>
-    <nav>
-        {% if user.is_authenticated %}
-        <p>You're logged in as: {{ user.username }}, <a href="{% url auth_logout %}">logout</a></p>
-        {% else %}
-        <p><a href="{% url registration_register %}">signup</a>, <a href="{% url auth_login %}">login</a></p>
-        {% endif %}
-        <a href="{% url adventure-list %}">List Adventures</a>
-    </nav>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    {% block content %}{% endblock %}
+  <title>{% block title %}Textadv{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{% endblock %}">
+  <meta name="author" content="{% block meta_author %}{% endblock %}">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+
+  {% comment %}
+  <link rel="shortcut icon" href="{{ STATIC_URL }}/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  {% endcomment %}
+
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/base.css">
+  <link rel="stylesheet" media="handheld" href="{{ STATIC_URL }}css/handheld.css">
+  {% block extra_css %}{% endblock %}
+
+  <script src="{{ STATIC_URL }}js/modernizr-1.5.min.js"></script>
+</head>
+
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]> <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]> <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
+
+  <div id="container">
+    <header>
+        <h1>txtadv</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url index %}">Homepage</a></li>
+                <li><a href="#">Adventures</a></li>
+                <li><a href="#">Create your own adventure</a></li>
+            </ul>
+            <p id="usernav">
+            {% if user.is_authenticated %}
+                You're logged in as: {{ user.username }} (<a href="{% url profile %}">Profile</a>), <a href="{% url auth_logout %}">logout</a>
+            {% else %}
+                <a href="{% url registration_register %}">signup</a>, <a href="{% url auth_login %}">login</a>
+            {% endif %}
+            <a href="{% url adventure-list %}">List Adventures</a> 
+            </p>
+        </nav>
+    </header>
+
+    <div id="main">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+
+    </footer>
+  </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script>!window.jQuery && document.write('<script src="{{ STATIC_URL }}js/jquery-1.4.2.min.js"><\/script>')</script>
+  {% block extra_js %}{% endblock %}
 </body>
 </html>

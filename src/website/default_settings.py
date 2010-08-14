@@ -124,4 +124,5 @@ INSTALLED_APPS = (
     'django_extensions',
     'registration',
     'website.adventure',
+    'website.profile',
 )
