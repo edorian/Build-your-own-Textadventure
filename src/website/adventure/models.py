@@ -61,7 +61,7 @@ class Location (models.Model):
             self.number = aggregate['number__max'] + 1
         return super(Location, self).save(*args, **kwargs)
 
-class RateingManager (models.Manager):
+class RatingManager (models.Manager):
     def avg_rating(self, adventure):
         return self.filter(adventure=adventure).aggregate(Avg('rating'))
     
@@ -79,11 +79,11 @@ class Rating (models.Model):
         (5, "Very Good"),
     )
 
-    user = models.ForeignLey("auth.User")
+    user = models.ForeignKey("auth.User")
     adventure = models.ForeignKey("adventure.Adventure")
     rating = models.IntegerField(choices=RATING_CHOICES)
 
-    objects = RateingManager()
+    objects = RatingManager()
 
     class Meta:
         unique_together = ("adventure", "user")
