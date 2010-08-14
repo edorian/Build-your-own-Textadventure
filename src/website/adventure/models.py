@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Max
 from datetime import datetime
-from django.db.models import Q
+from django.db.models import Q, Avg
 from website.adventure.utils import LANGUAGES
 
 
@@ -69,6 +69,31 @@ class Location (models.Model):
             self.number = self.get_next_number()
         return super(Location, self).save(*args, **kwargs)
 
-class Achievements (models.Model):
-    user = models.OneToOneField("auth.User")
+class RateingManager (models.Manager):
+    def avg_rating(self, adventure):
+        return self.filter(adventure=adventure).aggregate(Avg('rating'))
+    
+    def ratings(self, adventure):
+        return self.filter(adventure=adventure).count();
+
+
+class Rating (models.Model):
+
+    RATING_CHOICES = (
+        (1, "Very Bad / Broken"),
+        (2, "Bad"),
+        (3, "Ok"),
+        (4, "Good"),
+        (5, "Very Good"),
+    )
+
+    user = models.ForeignLey("auth.User")
+    adventure = models.ForeignKey("adventure.Adventure")
+    rating = models.IntegerField(choices=RATING_CHOICES)
+
+    objects = RateingManager()
+
+    class Meta:
+        unique_together = ("adventure", "user")
+
 
