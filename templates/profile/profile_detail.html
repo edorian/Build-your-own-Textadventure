@@ -8,4 +8,9 @@
         <li>Email: {{ user.email }}</li>
         <li><a href="{% url auth_password_change %}">change password</a></li>
     </ul>
+    <h1>Your progress</h1>
+    <ul>
+        <li>Adventures started: {{ adventures_started }}</li>
+        <li>Adventures completed: {{ adventures_completed }}</li>
+    </ul>
 {% endblock %}
