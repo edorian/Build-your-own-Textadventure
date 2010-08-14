@@ -1,0 +1,7 @@
+Thanks for registering.
+
+Please complete your registration by clicking the following link:
+
+http://{{ site.domain }}{% url registration_activate activation_key %}
+
+Have fun!

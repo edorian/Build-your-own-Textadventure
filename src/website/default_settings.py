@@ -82,6 +82,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
     'staticfiles.context_processors.static_url',
+    'website.context_processors.site',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -106,6 +107,12 @@ TEMPLATE_DIRS = (
     join('templates'),
 )
 
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_ACTIVATION_DAYS = 3
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -115,4 +122,5 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'debug_toolbar',
     'django_extensions',
+    'registration',
 )
