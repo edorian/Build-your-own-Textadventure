@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Max
 from datetime import datetime
@@ -55,6 +56,11 @@ class Location (models.Model):
     def __unicode__(self):
         return self.title
 
+    def get_location_link(self, link):
+        assert link[0] == '#'
+        link = link[1:]
+        return reverse('adventure-location', args=(self.adventure.pk, link))
+
     def get_next_number(self):
         if not hasattr(self, '_next_number'):
             if self.adventure is None:
@@ -87,7 +93,7 @@ class Rating (models.Model):
         (5, "Very Good"),
     )
 
-    user = models.ForeignLey("auth.User")
+    user = models.ForeignKey("auth.User")
     adventure = models.ForeignKey("adventure.Adventure")
     rating = models.IntegerField(choices=RATING_CHOICES)
 

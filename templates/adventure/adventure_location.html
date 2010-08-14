@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load adventure_tags %}
+
 
 {% block content %}
 
@@ -10,7 +12,7 @@
 {% endif %}
 
 <h2>{{ location }}</h2>
-<p>{{ location.description }}</p>
+<p>{{ location|showtext }}</p>
 {% if location.type != location.TYPE_NORMAL %}
 <hr>
 {% endif %}
