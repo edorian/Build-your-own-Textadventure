@@ -95,6 +95,7 @@
 				if(input.attr('disabled')) control.readOnly = true;
 				
 				// Create 'cancel' button
+                                /*
 				rater.append(
 					control.cancel = $('<div class="rating-cancel"><a title="' + control.cancel + '">' + control.cancelValue + '</a></div>')
 					.mouseover(function(){
@@ -112,6 +113,7 @@
 					})
 					.data('rating', control)
 				);
+                                */
 				
 			}; // first element of group
 			
@@ -250,7 +252,7 @@
 			else
 			 $(control.inputs).removeAttr('checked');
 			// Show/hide 'cancel' button
-			control.cancel[control.readOnly || control.required?'hide':'show']();
+			//control.cancel[control.readOnly || control.required?'hide':'show']();
 			// Add/remove read-only classes to remove hand pointer
 			this.siblings()[control.readOnly?'addClass':'removeClass']('star-rating-readonly');
 		},// $.fn.rating.draw
@@ -348,8 +350,8 @@
 		$.fn.rating.options.cancel = 'Clear';
 	*/
 	$.fn.rating.options = { //$.extend($.fn.rating, { options: {
-			cancel: 'Cancel Rating',   // advisory title for the 'cancel' link
-			cancelValue: '',           // value to submit when user click the 'cancel' link
+			//cancel: 'Cancel Rating',   // advisory title for the 'cancel' link
+			//cancelValue: '',           // value to submit when user click the 'cancel' link
 			split: 0,                  // split the star into how many parts?
 			
 			// Width of star image in case the plugin can't work it out. This can happen if

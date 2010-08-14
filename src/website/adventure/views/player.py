@@ -72,6 +72,6 @@ def adventure_location(request, adventure_id, location_number, extra_context=Non
         context_instance=RequestContext(request))
 
 @login_required
-def adventure_rating(request):
+def adventure_rating(request, rating):
     pass
 

@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^adventure/location/(?P<adventure_id>\d+)/(?P<location_number>\d+)/$',
         "website.adventure.views.player.adventure_location",
         name="adventure-location"),
-    url(r'^adventure/rate/',
+    url(r'^adventure/rate/(?P<rating>\d+)/$',
         "website.adventure.views.player.adventure_rating",
         name="adventure-rating"),
 
