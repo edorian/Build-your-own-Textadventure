@@ -60,6 +60,12 @@ class Adventure (models.Model):
                 self._first_location = None
         return self._first_location
 
+    @property
+    def location_numbers(self):
+        if not hasattr(self, '_location_numbers'):
+            self._location_numbers = self.locations.values_list('number', flat=True)
+        return self._location_numbers
+
 
 class Location (models.Model):
     TYPE_NORMAL = 0
@@ -108,9 +114,10 @@ class Location (models.Model):
         if not match:
             return ''
         number = match.group()[1]
+        number = int(number)
         # don't show error since we don't want a broken link to ruin the whole
         # adventure -> so do gracefully display nothing :)
-        if not self.adventure.locations.filter(number=number).exists():
+        if number not in self.adventure.location_numbers:
             return ''
         return reverse('adventure-location', args=(self.adventure.pk, number))
 
