@@ -42,6 +42,25 @@ class Adventure (models.Model):
     def get_absolute_url(self):
         return 'adventure-detail', (self.pk,), {}
 
+    @property
+    def last_location(self):
+        if not hasattr(self, '_last_location'):
+            try:
+                self._last_location = self.locations.order_by('-number')[0]
+            except IndexError:
+                self._last_location = None
+        return self._last_location
+
+    @property
+    def first_location(self):
+        if not hasattr(self, '_first_location'):
+            try:
+                self._first_location = self.locations.order_by('number')[0]
+            except IndexError:
+                self._first_location = None
+        return self._first_location
+
+
 class Location (models.Model):
     TYPE_NORMAL = 0
     TYPE_WIN = 1
@@ -60,8 +79,11 @@ class Location (models.Model):
     description = models.TextField()
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=TYPE_NORMAL)
 
+    class Meta:
+        ordering = ('adventure', 'number',)
+
     def __unicode__(self):
-        return self.title
+        return '#%s %s' % (self.number, self.title)
 
     @models.permalink
     def get_absolute_url(self):

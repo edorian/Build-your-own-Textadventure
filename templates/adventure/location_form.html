@@ -15,7 +15,7 @@
     {% else %}
     <h1>Edit {{ object }} in adventure {{ adventure }}</h1>
     {% endif %}
-    <a href="{% url location-list adventure.pk %}">Back to location overview</a>
+    <a href="{% url adventure-edit adventure.pk %}">Back to adventure</a>
     <form action="" method="post">{% csrf_token %}
         <div class="field">
             <div class="label">{{ form.title.label_tag }}:</div>
@@ -34,7 +34,7 @@
             </div>
             <div class="locations">
                 {% for location in adventure.locations.all %}
-                    <a rel="{{ location.number }}" class="location">#{{ location.number }} {{ location }}</a><br />
+                    <a href="{% url location-edit adventure.pk location.pk %}" rel="{{ location.number }}" class="location">{{ location }}</a><br />
                 {% endfor %}
 
                 {% if create %}
