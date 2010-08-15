@@ -65,6 +65,7 @@
         </p>
 
 
+        {% if adventure.graph %}
         <p class="help_text">
             Below is a graph that makes a relation between all your current
             locations. Please save your current location to update the graph.
@@ -72,5 +73,6 @@
         <div class="graph">
             <object type="image/svg+xml" data="{{ adventure.graph.svg.url }}" width="640" height="480"></object>
         </div>
+        {% endif %}
     </form>
 {% endblock %}
