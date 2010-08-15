@@ -5,13 +5,14 @@
     "fields": {
       "description": "This is the demo adventure, it's short, it has some pop culture references and it exists to show off the features of the adventure creator.\r\n\r\nHave fun playing.", 
       "language": "en", 
-      "created": "2010-08-14 14:51:23", 
       "author": 2, 
-      "modified": "2010-08-15 17:03:30", 
+      "created": "2010-08-14 14:51:23", 
+      "next_page_number": 9, 
       "started_by_user": [
         1, 
         2
       ], 
+      "modified": "2010-08-16 00:16:21", 
       "completed_by_user": [
         1
       ], 
@@ -40,15 +41,15 @@
     "pk": 3, 
     "model": "adventure.location", 
     "fields": {
-      "description": "While the worries about paying off you dept with the innkeeper slowly start to grow you [have another one since it doesn't matter anyways anymore](#2) or you [finally head home](#3)", 
+      "description": "While the worries about paying off you dept with the innkeeper slowly start to grow you [have another one since it doesn't matter anyways anymore](#8) or you [finally head home](#3)", 
       "links": [
-        3, 
-        4
+        4, 
+        9
       ], 
       "created": "2010-08-15 13:28:57", 
       "title": "Another Beer", 
       "number": 2, 
-      "modified": "2010-08-15 16:56:21", 
+      "modified": "2010-08-16 00:16:46", 
       "adventure": 1, 
       "type": 0
     }
@@ -131,10 +132,27 @@
     }
   }, 
   {
+    "pk": 9, 
+    "model": "adventure.location", 
+    "fields": {
+      "description": "_That rounds on me !_ you announce waving your hands. But what about yourself ? [Having another beer](#2) or  [finally heading home](#3)", 
+      "links": [
+        3, 
+        4
+      ], 
+      "created": "2010-08-16 00:16:21", 
+      "title": "Yet another beer", 
+      "number": 8, 
+      "modified": "2010-08-16 00:16:21", 
+      "adventure": 1, 
+      "type": 0
+    }
+  }, 
+  {
     "pk": 2, 
     "model": "adventure.rating", 
     "fields": {
-      "rating": 1, 
+      "rating": 5, 
       "user": 2, 
       "adventure": 1
     }
