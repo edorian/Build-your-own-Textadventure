@@ -42,16 +42,16 @@
             <div id="usernav">
                 <ul>
                     <li><a href="{% url about %}">About us</a></li>
-                    {% if user.is_authenticated %}
                     <li class="inline">
+                        {% if user.is_authenticated %}
                         You're logged in as: {{ user.username }}
                         (<a href="{% url profile %}">Profile</a>),
                         <a href="{% url auth_logout %}">logout</a>
                         {% else %}
                         <a href="{% url registration_register %}">signup</a>,
                         <a href="{% url auth_login %}">login</a>
+                        {% endif %}
                     </li>
-                    {% endif %}
                 </ul>
             </div>
         </nav>
