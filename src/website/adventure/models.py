@@ -158,8 +158,14 @@ class Location (models.Model):
         return super(Location, self).save(*args, **kwargs)
 
 
-def save_location_links(sender, instance, **kwargs):
+def save_location_links(sender, instance, created, **kwargs):
     instance.links = instance.extract_links()
+    if created:
+        locations_maybe_linking_to_page = \
+            instance.adventure.locations.filter(
+                description__contains='#%d' % instance.number)
+        for location in locations_maybe_linking_to_page:
+            location.links = location.extract_links()
 
 models.signals.post_save.connect(save_location_links, sender=Location)
 
