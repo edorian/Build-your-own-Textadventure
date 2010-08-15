@@ -106,7 +106,7 @@ def adventure_location(request, adventure_id, location_number, extra_context=Non
             context["user_rating"] = Rating.objects.get(
                 adventure=adventure,
                 user=request.user
-            )
+            ).rating
         except Rating.DoesNotExist:
             context["user_rating"] = -1;
 
