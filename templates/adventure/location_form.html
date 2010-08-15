@@ -18,6 +18,8 @@
     {% endif %}
     <a href="{% url adventure-edit adventure.pk %}">Back to adventure</a>
     <form action="" method="post">{% csrf_token %}
+        <div class="pullleft">
+
         <div class="field">
             <div class="label">{{ form.title.label_tag }}:</div>
             {{ form.title.errors }}
@@ -65,8 +67,10 @@
             <input type="submit" name="_new" value="save and create another location" />
         </p>
 
+        </div>
+
         {% if adventure.graph %}
-        <div class="editor-graph">
+        <div class="editor-graph pullleft">
         <h2>Adventure places</h2>
         <p>
             Below is a graph that makes a relation between all your current

@@ -58,6 +58,8 @@ textarea {
 
 .editor {
     clear:both;
+    width:71em;
+    margin-right:2em;
 }
 .editor .input {
     width:51em;
