@@ -8,7 +8,7 @@ a {
     color:#0000ff;
 }
 
-p {
+p, #main ul {
     max-width:50em;
     padding:0.3em 0;
     line-height:1.5em;
