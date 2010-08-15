@@ -46,6 +46,9 @@ urlpatterns = patterns('',
     url(r'^adventure/(?P<adventure_id>\d+)/location/(?P<location_id>\d+)/edit/$',
         'website.adventure.views.editor.location_edit',
         name='location-edit'),
+    url(r'^adventure/(?P<adventure_id>\d+)/location/(?P<location_id>\d+)/delete/$',
+        'website.adventure.views.editor.location_delete',
+        name='location-delete'),
 )
 
 if settings.DEBUG:

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Delete: {{ object }}</h1>
+
+<p>Do you really want to delete the place <strong>{{ object }}</strong>. There
+is no undo and the location will be in nirvana for ever.</p>
+
+<form action="" method="post">{% csrf_token %}
+    <input type="submit" value="yes, i'm sure - delete the location" />
+    <a href="{% url location-edit adventure.pk object.pk %}"><input type="button" value="no, bring me back" /></a>
+</form>
+
+{% endblock %}

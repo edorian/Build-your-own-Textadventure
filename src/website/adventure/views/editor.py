@@ -52,6 +52,22 @@ def location_edit(request, adventure_id, location_id):
     return location_form(request, adventure_id, location_id)
 
 
+@login_required
+def location_delete(request, adventure_id, location_id):
+    adventure = get_object_or_404(Adventure,
+        pk=adventure_id, author=request.user)
+    location = get_object_or_404(adventure.locations.all(), pk=location_id)
+    if request.method == 'POST':
+        location.delete()
+        messages.success(request, u"You have deleted location %s" % location)
+        return HttpResponseRedirect(
+            reverse('adventure-edit', args=(adventure.pk,)))
+    return render_to_response('adventure/location_confirm_delete.html', {
+        'adventure': adventure,
+        'object': location,
+    }, context_instance=RequestContext(request))
+
+
 def location_form(request, adventure_id, location_id=None):
     adventure = get_object_or_404(Adventure, pk=adventure_id, author=request.user)
     queryset = Location.objects.filter(adventure=adventure)

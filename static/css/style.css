@@ -4,7 +4,7 @@ html {
     font-family:sans-serif;
 }
 
-a, a:visited {
+a {
     color:#0000ff;
 }
 
@@ -26,7 +26,7 @@ p, #main ul {
  */
 
 form {
-    margin:2em 2em 2em 0;
+    margin:0em 2em 2em 0;
 }
 
 .field {
@@ -39,6 +39,19 @@ form {
 }
 .input {
     
+}
+
+input[type=submit],
+input[type=button] {
+    font-size:1.1em;
+}
+
+.delete {
+    padding:0.5em;
+    padding-left:38px;
+    font-size:1.1em;
+    color:#ff0000;
+    background: url(icons/22x22/delete.png) no-repeat 8px center;
 }
 
 input[type=text], input[type=password] {
@@ -58,6 +71,8 @@ textarea {
 
 .editor {
     clear:both;
+    width:71em;
+    margin-right:2em;
 }
 .editor .input {
     width:51em;
