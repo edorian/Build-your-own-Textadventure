@@ -6,10 +6,15 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    # "static"
     url(r'^$', 'website.views.index', name='index'),
+    url(r'^about/$', 'website.views.about', name='about'),
+
+    # registration & profile
     url(r'^profile/$', 'website.profile.views.profile', name='profile'),
     url(r'^', include('registration.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+
+    # player
     url(r'^adventure/list/$', "website.adventure.views.player.adventure_list", name="adventure-list"),
     url(r'^adventure/list/my/$',
         'website.adventure.views.player.adventure_list_my',
@@ -52,6 +57,9 @@ urlpatterns = patterns('',
     url(r'^adventure/(?P<adventure_id>\d+)/location/(?P<location_id>\d+)/delete/$',
         'website.adventure.views.editor.location_delete',
         name='location-delete'),
+
+    # admin
+    url(r'^admin/', include(admin.site.urls)),
 )
 
 if settings.DEBUG:
