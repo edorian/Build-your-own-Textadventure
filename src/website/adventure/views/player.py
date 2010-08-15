@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from django.http import Http404, HttpResponse
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from website.adventure.models import Adventure, Location, Rating
 from website.adventure.utils import LANGUAGE_CODES, LANGUAGE_NAMES
 
@@ -14,6 +14,7 @@ def adventure_list(request, adventures=None, extra_context=None, template_name=N
         adventures = Adventure.objects.filter(published=True)
     adventures = adventures.select_related('author')
     adventures = adventures.annotate(avg_rating=Avg('rating__rating'))
+    adventures = adventures.annotate(ratings=Count('rating__rating'))
 
     context = {
         "adventures": adventures,

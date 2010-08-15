@@ -27,7 +27,7 @@ def display_rating(adventure):
                             
         ret.append(
             '<input class="star {split:4}" type="radio" name="rating-%s" '
-            ' value="%s" title="%s" disabled="disabled" %s />' 
-            % (adventure.id, step, adventure.avg_rating, checked)
+            ' value="%s" title="Rated %s on average by %s users" disabled="disabled" %s />' 
+            % (adventure.id, step, adventure.avg_rating, adventure.ratings, checked)
         );
     return "\n".join(ret);
