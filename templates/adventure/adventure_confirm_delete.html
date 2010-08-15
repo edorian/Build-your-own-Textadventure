@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load adventure_tags %}
+
+
+{% block content %}
+<h1>Delete: {{ object }}</h1>
+
+<p>Do you really want to delete the adventure <strong>{{ object }}</strong>? There
+is no undo and the adventure and all its <strong>{{ object.locations.count }} pages</strong>
+will be in nirvana for ever.</p>
+
+{% adventure_graph object "nohelp" %}
+
+<form action="" method="post">{% csrf_token %}
+    <input type="submit" value="yes, i'm sure - delete the adventure" />
+    <a href="{% url adventure-edit object.pk %}"><input type="button" value="no, bring me back" /></a>
+</form>
+
+{% endblock %}

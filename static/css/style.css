@@ -38,7 +38,7 @@ form {
     font-weight:bold;
 }
 .input {
-    
+
 }
 
 input[type=submit],
@@ -66,6 +66,13 @@ input[type=button] {
     font-size:1.1em;
     color:#008800;
     background: url(icons/22x22/add.png) no-repeat 8px center;
+}
+
+.smalledit {
+    padding:0.2em;
+    padding-left:28px;
+    color:#888800;
+    background: url(icons/16x16/edit.png) no-repeat 6px center;
 }
 
 .edit {
@@ -145,6 +152,10 @@ textarea {
 .pullleft.graphwrapper,
 .pullright.graphwrapper {
     margin:1em;
+}
+
+.nohelp .help_text {
+    display:none;
 }
 
 .graph {
@@ -272,4 +283,9 @@ table.object-list td {
 #messages li.warning {
     background-color:#ffff88;
     background-image: url(icons/32x32/warning.png);
+}
+
+#toolbox {
+    float:right;
+    margin:0 1em;
 }

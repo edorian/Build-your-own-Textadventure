@@ -43,6 +43,19 @@ def adventure_edit(request, object_id):
 
 
 @login_required
+def adventure_delete(request, adventure_id):
+    adventure = get_object_or_404(Adventure,
+        pk=adventure_id, author=request.user)
+    if request.method == 'POST':
+        adventure.delete()
+        messages.success(request, u"You have deleted the adventure %s" % adventure)
+        return HttpResponseRedirect(reverse('adventure-list-my'))
+    return render_to_response('adventure/adventure_confirm_delete.html', {
+        'object': adventure,
+    }, context_instance=RequestContext(request))
+
+
+@login_required
 def location_create(request, adventure_id):
     return location_form(request, adventure_id)
 

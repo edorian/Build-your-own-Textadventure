@@ -28,19 +28,25 @@
 
 {% block content %}
 
-<h1 style="float: left">{{ adventure }}</h1>
+<h1 class="pullleft">{{ adventure }}</h1>
 {% if user.is_authenticated %}
-<div class="star-container" style="float: right">
-    Rate this Adventure: <br />
-    <form action="{% url adventure-rating adventure.id %}" method="POST" id="rating">
-    {% for rating in RATING_CHOICES %}
-        <input name="rating" type="radio" class="auto-submit-star" value="{{ rating.0 }}" title="{{ rating.1 }}"
-            {% if rating.0 == user_rating %}checked="checked"{% endif %}
-        />
-    {% endfor %}
-    </form>
-</div>
+    <div class="star-container pullright">
+        Rate this Adventure: <br />
+        <form action="{% url adventure-rating adventure.id %}" method="POST" id="rating">
+        {% for rating in RATING_CHOICES %}
+            <input name="rating" type="radio" class="auto-submit-star" value="{{ rating.0 }}" title="{{ rating.1 }}"
+                {% if rating.0 == user_rating %}checked="checked"{% endif %}
+            />
+        {% endfor %}
+        </form>
+    </div>
+    {% if adventure.author == user %}
+    <div id="toolbox">
+        <a href="{% url location-edit adventure.pk location.pk %}" class="edit">edit this page</a>
+    </div>
+    {% endif %}
 {% endif %}
+
 <hr style="clear:both">
 
 {% if extra_content %}
