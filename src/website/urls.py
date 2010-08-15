@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 from django.contrib import admin
 from django.http import HttpResponseNotFound, HttpResponseServerError
-from django.template import RequestContext
+from django.template import loader, RequestContext
 
 
 def handler404(request):
