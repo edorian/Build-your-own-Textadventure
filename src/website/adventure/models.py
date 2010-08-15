@@ -26,6 +26,7 @@ class Adventure (models.Model):
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
     language = models.CharField(max_length=5, choices=LANGUAGES, default="en")
+    next_page_number = models.PositiveIntegerField(default=1)
 
     started_by_user = models.ManyToManyField(
         "auth.User", related_name="started_adventure", blank=True)
@@ -130,15 +131,6 @@ class Location (models.Model):
     def get_number_display(self):
         return '#%s' % self.number
 
-    def get_next_number(self):
-        if not hasattr(self, '_next_number'):
-            if self.adventure is None:
-                self._next_number = 1
-            else:
-                aggregate = self.adventure.locations.aggregate(Max('number'))
-                self._next_number = (aggregate['number__max'] or 0) + 1
-        return self._next_number
-
     def extract_links(self):
         from website.adventure.views.player import adventure_location
         resolver = get_resolver(None)
@@ -156,7 +148,9 @@ class Location (models.Model):
 
     def save(self, *args, **kwargs):
         if not self.number:
-            self.number = self.get_next_number()
+            self.number = self.adventure.next_page_number
+            self.adventure.next_page_number += 1
+            self.adventure.save()
         return super(Location, self).save(*args, **kwargs)
 
 
