@@ -57,9 +57,15 @@ $(document).ready(function() {
                 <a href="{% url adventure-list-language adventure.language %}">{{ adventure.get_language_display }}</a>
             </td>
             <td>
-                <div title="Rated with {{ adventure.avg_rating }} Stars on average by {{ adventure.ratings }} users" class="star-container">
-                    {% display_rating adventure %}
-                </div>
+                {% if adventure.avg_rating %}
+                    <div title="Rated with {{ adventure.avg_rating }} Stars on average by {{ adventure.ratings }} users" class="star-container">
+                        {% display_rating adventure %}
+                    </div>
+                {% else %}
+                    <div>
+                        {% display_rating adventure %}
+                    </div>
+                {% endif %}
             </td>
             {% if show_status %}
             <td>{{ adventure.status }}</td>
