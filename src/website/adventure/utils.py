@@ -53,4 +53,7 @@ LANGUAGES = (
     ('vi', 'Vietnamese'),
     ('zh-cn', 'Simplified Chinese'),
     ('zh-tw', 'Traditional Chinese'),
-) 
+)
+
+LANGUAGE_CODES = [code for code, lang in LANGUAGES]
+LANGUAGE_NAMES = dict(LANGUAGES)

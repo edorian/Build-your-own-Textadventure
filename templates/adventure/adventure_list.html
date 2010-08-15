@@ -33,7 +33,7 @@
                 <a href="{% url adventure-detail adventure.id %}">{{ adventure }}</a>
             </td>
             <td><a href="{% url adventure-list-author adventure.author.username %}">{{ adventure.author.username }}</a></td>
-            <td>{{ adventure.get_language_display }}</td>
+            <td><a href="{% url adventure-list-language adventure.language %}">{{ adventure.get_language_display }}</a></td>
             <td>{{ adventure.avg_rating }}</td>
             {% if show_status %}
             <td>{{ adventure.status }}</td>

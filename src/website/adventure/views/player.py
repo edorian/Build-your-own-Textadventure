@@ -6,11 +6,13 @@ from django.template import RequestContext
 from django.http import Http404, HttpResponse
 from django.db.models import Avg
 from website.adventure.models import Adventure, Location, Rating
+from website.adventure.utils import LANGUAGE_CODES, LANGUAGE_NAMES
 
 
-def adventure_list(request, adventures=None, extra_context=None):
+def adventure_list(request, adventures=None, extra_context=None, template_name=None):
     if adventures is None:
-        adventures = Adventure.objects.filter(published=True)
+        adventures = Adventure.objects.all()
+    adventures = adventures.filter(published=True)
     adventures = adventures.select_related('author')
     adventures = adventures.annotate(avg_rating=Avg('rating__rating'))
 
@@ -36,18 +38,35 @@ def adventure_list(request, adventures=None, extra_context=None):
     if extra_context is not None:
         context.update(extra_context)
 
-    return render_to_response('adventure/adventure_list.html', context,
+    template_names = []
+    if template_name is None:
+        template_names.append(template_name)
+    template_names.append('adventure/adventure_list.html')
+    return render_to_response(template_names, context,
         context_instance=RequestContext(request))
 
 @login_required
 def adventure_list_my(request):
     adventures = Adventure.objects.filter(author=request.user)
-    return adventure_list(request, adventures, {"only_own_adventures": True});
+    return adventure_list(request, adventures,
+        {"only_own_adventures": True},
+        'adventure7adventure_list_my.html')
 
-def adventure_list_author(request, username):
+def adventure_list_by_author(request, username):
     author = get_object_or_404(User, username=username)
     adventures = Adventure.objects.filter(author=author)
-    return adventure_list(request, adventures, {"author": author, "author_list": True});
+    return adventure_list(request, adventures,
+        {"author": author, "author_list": True},
+        'adventure/adventure_list_author.html')
+
+def adventure_list_by_language(request, language):
+    if language not in LANGUAGE_CODES:
+        raise Http404
+    language_name = LANGUAGE_NAMES[language]
+    adventures = Adventure.objects.filter(language=language)
+    return adventure_list(request, adventures,
+        {"language_code": language, "language": language_name, "language_list": True},
+        'adventure/adventure_list_language.html')
 
 def adventure_detail(request, object_id):
     object = Adventure.objects.get(pk=object_id)
