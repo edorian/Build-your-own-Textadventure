@@ -90,7 +90,7 @@ def pull():
     with cd(path):
         run('git pull')
 
-def deploy(buildout=True):
+def deploy(run_buildout=True):
     '''
     * test project
     * upload source
@@ -99,7 +99,7 @@ def deploy(buildout=True):
     '''
     test()
     pull()
-    if buildout not in (False, 0, 'False', '0'):
+    if run_buildout not in (False, 0, 'False', '0'):
         buildout()
     migrate()
     restart()
