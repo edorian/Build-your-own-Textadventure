@@ -63,5 +63,14 @@
             <input type="submit" name="_continue" value="save and continue editing" />
             <input type="submit" name="_new" value="save and create another location" />
         </p>
+
+
+        <p class="help_text">
+            Below is a graph that makes a relation between all your current
+            locations. Please save your current location to update the graph.
+        </p>
+        <div class="graph">
+            <object type="image/svg+xml" data="{{ adventure.graph.svg.url }}" width="640" height="480"></object>
+        </div>
     </form>
 {% endblock %}

@@ -161,6 +161,16 @@ class Location (models.Model):
         return super(Location, self).save(*args, **kwargs)
 
 
+class Graph(models.Model):
+    adventure = models.OneToOneField(Adventure, db_index=True)
+    hash = models.CharField(max_length=32)
+    dot = models.TextField()
+    svg = models.FileField(upload_to='adventures/graphs/')
+
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
+
+
 class RatingManager (models.Manager):
     def avg_rating(self, adventure):
         return self.filter(adventure=adventure).aggregate(Avg('rating'))
@@ -189,3 +199,5 @@ class Rating (models.Model):
         unique_together = ("adventure", "user")
 
 
+# hook in signals to generate graphs
+import website.adventure.graph
