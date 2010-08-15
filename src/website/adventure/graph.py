@@ -1,10 +1,13 @@
 import hashlib
 import tempfile
-from django.conf import settings
 from django.core.files import File
 from django.db.models.signals import post_save
-from pygraphviz import AGraph
 from website.adventure.models import Location, Graph
+
+try:
+    import pygraphviz
+except ImportError:
+    pygraphviz = None
 
 
 class GraphGenerator(object):
@@ -41,7 +44,7 @@ class GraphGenerator(object):
         node.attr['color'] = '#0000ff'
 
     def generate_location_graph(self):
-        graph = AGraph(strict=False, directed=True)
+        graph = pygraphviz.AGraph(strict=False, directed=True)
         graph.add_nodes_from([l.get_number_display() for l in self.locations])
         for location in self.locations:
             for link in location.links.all():
@@ -85,6 +88,9 @@ class GraphGenerator(object):
 
 
 def update_location_graph(sender, instance, **kwargs):
+    if pygraphviz is None:
+        return
+
     generator = GraphGenerator(instance.adventure)
     generator.generate_location_graph()
     generator.color_graph()
