@@ -37,12 +37,14 @@
                 <p class="help_text">Drag page names below into the textbox to create links. Click the pages to edit them.</p>
 
                 <p>
+                    {% with object.adventure.next_page_number as next_page %}
                     {% if create %}
-                    <a rel="{{ object.get_next_number }}" class="location">#{{ object.get_next_number }} <em>current page</em></a><br />
+                    <a rel="{{ next_page }}" class="location">#{{ next_page }} <em>current page</em></a><br />
                     {% endif %}
-                    <a rel="{{ object.get_next_number|add:0|add:create }}" class="location">#{{ object.get_next_number|add:0|add:create }} <em>next page you create</em></a><br />
-                    <a rel="{{ object.get_next_number|add:1|add:create }}" class="location">#{{ object.get_next_number|add:1|add:create }} <em>second next page you create</em></a><br />
-                    <a rel="{{ object.get_next_number|add:2|add:create }}" class="location">#{{ object.get_next_number|add:2|add:create }} <em>third next page you create</em></a><br />
+                    <a rel="{{ next_page|add:0|add:create }}" class="location">#{{ next_page|add:0|add:create }} <em>next page you create</em></a><br />
+                    <a rel="{{ next_page|add:1|add:create }}" class="location">#{{ next_page|add:1|add:create }} <em>second next page you create</em></a><br />
+                    <a rel="{{ next_page|add:2|add:create }}" class="location">#{{ next_page|add:2|add:create }} <em>third next page you create</em></a><br />
+                    {% endwith %}
                 </p>
 
                 <p>
