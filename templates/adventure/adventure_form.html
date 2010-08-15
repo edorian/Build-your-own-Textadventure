@@ -17,9 +17,34 @@
     {% endif %}
 
     <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
+        <div class="field">
+            <div class="label">{{ form.name.label_tag }}:</div>
+            {{ form.name.errors }}
+            <div class="input">{{ form.name }}</div>
+            <p>The name that is going to show up in the Adventure overview.<br />
+             Best pick something that motivates people to try your adventure.</p>
+        </div>
+        <div class="field">
+            <div class="label">{{ form.description.label_tag }}:</div>
+            {{ form.description.errors }}
+            <div class="input">{{ form.description }}</div>
+            <p>The description of your adventure. Tell us what your adventure will be about ! <br/>
+                If you want to maybe tell a little tale of how everything started ?
+            </p>
+        </div>
+        <div class="field">
+            <div>
+                <span class="label">{{ form.language.label_tag }}:</span>
+                <span class="input">{{ form.language }}</span>
+            </div>
+            {{ form.language.errors }}
+            <p>
+                While the site, currently, is only available in english you can use any language you want for you adventure !<br />
+                Please choose the appropriate one so people will find your adventure easily.
+            </p>
+        </div>
         <p>
-        <input type="submit" value="save" />
+            <input type="submit" value="Let's go !" />
         </p>
     </form>
     
