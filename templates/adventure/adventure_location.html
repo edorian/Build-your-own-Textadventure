@@ -42,7 +42,7 @@
     </div>
     {% if adventure.author == user %}
     <div id="toolbox">
-        <a href="" class="edit">edit this page</a>
+        <a href="{% url location-edit adventure.pk location.pk %}" class="edit">edit this page</a>
     </div>
     {% endif %}
 {% endif %}
