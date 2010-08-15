@@ -39,13 +39,13 @@
                 <li><a href="{% url adventure-create %}">Create your own adventure</a></li>
                 <li><a href="{% url adventure-list-my %}">My Adventures</a></li>
             </ul>
-            <p id="usernav">
+            <div id="usernav">
             {% if user.is_authenticated %}
                 You're logged in as: {{ user.username }} (<a href="{% url profile %}">Profile</a>), <a href="{% url auth_logout %}">logout</a>
             {% else %}
                 <a href="{% url registration_register %}">signup</a>, <a href="{% url auth_login %}">login</a>
             {% endif %}
-            </p>
+            </div>
         </nav>
     </header>
 

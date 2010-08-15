@@ -182,7 +182,7 @@ table.object-list td {
     color:#000000;
 }
 
-#header nav p {
+#header nav #usernav {
     padding:0.5em;
     float:right;
 }
