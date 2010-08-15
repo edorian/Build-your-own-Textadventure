@@ -1,4 +1,5 @@
 {% extends "adventure/base.html" %}
+{% load adventure_tags %}
 
 
 {% block extra_js %}
@@ -71,19 +72,7 @@
             Below is a graph that makes a relation between all your current
             locations. Please save your current location to update the graph.
         </p>
-        <div class="graph">
-            <object type="image/svg+xml" data="{{ adventure.graph.svg.url }}"></object>
-        </div>
-        <p class="help_text">
-            The location where your adventure starts is <span
-            class="startnode">marked as blue</span>. Winning locations are
-            <span class="winnode">green</span> and places where you loose are in a
-            <span class="loosenode">yellow tone</span>.<br />
-
-            There can also appear errors in the adventure like if you have page
-            that doesn't link to another page and is not winning or loosing
-            page. These locations have a <span class="looseend">red text</span>.
-        </p>
+        {% adventure_graph adventure %}
         </div>
         {% endif %}
 
