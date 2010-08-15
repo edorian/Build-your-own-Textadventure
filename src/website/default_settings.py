@@ -23,6 +23,7 @@ DATABASES = {
     }
 }
 
+SERVER_EMAIL = 'contact@txtadv.net'
 DEFAULT_FROM_EMAIL = 'contact@txtadv.net'
 
 # Local time zone for this installation. Choices can be found here:
