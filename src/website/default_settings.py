@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'debug_toolbar',
     'django_extensions',
+    'gunicorn',
     'registration',
     'south',
     'website.adventure',
