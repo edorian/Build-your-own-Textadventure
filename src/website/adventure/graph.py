@@ -61,7 +61,8 @@ class GraphGenerator(object):
         loose_ends -= self.win_locations
         loose_ends -= self.loose_locations
         for u, v in self.graph.edges_iter():
-            loose_ends -= set([u])
+            if u != v:
+                loose_ends -= set([u])
             if not loose_ends:
                 break
         for node in loose_ends:
