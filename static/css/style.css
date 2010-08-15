@@ -284,3 +284,8 @@ table.object-list td {
     background-color:#ffff88;
     background-image: url(icons/32x32/warning.png);
 }
+
+#toolbox {
+    float:right;
+    margin:0 1em;
+}
