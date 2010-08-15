@@ -2,9 +2,10 @@
 .installed.cfg
 bin
 db.sqlite
-downloads
 develop-eggs
+downloads
 eggs
-parts
+gunicorn.pid
 media
+parts
 src/website/local_settings.py
