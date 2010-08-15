@@ -46,6 +46,20 @@ input[type=button] {
     font-size:1.1em;
 }
 
+.forward {
+    padding:0.5em;
+    padding-right:30px;
+    font-size:1.1em;
+    background: url(icons/22x22/forward.png) no-repeat right center;
+}
+
+.back {
+    padding:0.5em;
+    padding-left:38px;
+    font-size:1.1em;
+    background: url(icons/22x22/back.png) no-repeat 8px center;
+}
+
 .add {
     padding:0.5em;
     padding-left:38px;

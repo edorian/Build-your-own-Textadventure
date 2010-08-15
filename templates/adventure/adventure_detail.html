@@ -4,9 +4,10 @@
 {% block content %}
 <h1>{{ object }}</h1>
 <p>{{ object.description }}</p>
-<p><a href="{% url adventure-start object.id %}">Start Adventure</a></p>
-
-{% if object.author == user %}
-    <p><a href="{% url adventure-edit object.id %}">Edit Adventure</a></p>
-{% endif %}
+<p>
+    {% if object.author == user %}
+    <a href="{% url adventure-edit object.id %}" class="edit">Edit Adventure</a>
+    {% endif %}
+    <a href="{% url adventure-start object.id %}" class="forward">Start Adventure</a>
+</p>
 {% endblock %}
