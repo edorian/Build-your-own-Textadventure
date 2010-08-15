@@ -6,4 +6,5 @@ downloads
 develop-eggs
 eggs
 parts
+media
 src/website/local_settings.py
