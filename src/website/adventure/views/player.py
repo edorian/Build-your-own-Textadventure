@@ -97,6 +97,10 @@ def adventure_location(request, adventure_id, location_number, extra_context=Non
         "location": location,
     }
     if request.user.is_authenticated():
+        if location.type == location.TYPE_WIN:
+            if not adventure.completed_by_user.filter(pk=request.user.id).exists():
+                adventure.completed_by_user.add(request.user)
+
         context["RATING_CHOICES"] = Rating.RATING_CHOICES
         try:
             context["user_rating"] = Rating.objects.get(
