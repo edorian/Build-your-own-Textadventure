@@ -122,6 +122,9 @@ class Location (models.Model):
             return ''
         return reverse('adventure-location', args=(self.adventure.pk, number))
 
+    def get_number_display(self):
+        return '#%s' % self.number
+
     def get_next_number(self):
         if not hasattr(self, '_next_number'):
             if self.adventure is None:
@@ -144,7 +147,7 @@ class Location (models.Model):
                     links.append(int(kwargs['location_number']))
             except Resolver404:
                 pass
-        return self.adventure.locations.filter(pk__in=links)
+        return self.adventure.locations.filter(number__in=links)
 
     def save(self, *args, **kwargs):
         if not self.number:
