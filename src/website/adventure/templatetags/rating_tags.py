@@ -4,6 +4,10 @@ register=template.Library()
 
 @register.simple_tag
 def display_rating(adventure):
+
+    if adventure.avg_rating is None:
+        return "<em>None yet</em>";
+
     # Because just writing
     # [1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0]
     # doesn't cut it don't you think ? 
