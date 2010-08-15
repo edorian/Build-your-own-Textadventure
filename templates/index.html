@@ -8,7 +8,9 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/lightbox/js/jquery.lightbox-0.5.pack.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $(".lightbox").lightBox();
+    $(".lightbox").lightBox({
+        imageBtnClose: "{{ STATIC_URL }}js/jquery/lightbox/images/lightbox-btn-close.gif"
+    });
 });
 </script>
 {% endblock %}
