@@ -4,6 +4,7 @@
 {% block content %}
 <h1>Login</h1>
 <form action="" method="post">{% csrf_token %}
+    {{ form.non_field_errors }}
     <div class="label">{{ form.username.label_tag }}:</div>
     {{ form.username.errors }}
     <div class="input">{{ form.username }}</div>

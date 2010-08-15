@@ -7,8 +7,10 @@
       "language": "en", 
       "created": "2010-08-14 14:51:23", 
       "author": 2, 
+      "modified": "2010-08-15 17:03:30", 
       "started_by_user": [
-        1
+        1, 
+        2
       ], 
       "completed_by_user": [
         1
@@ -22,10 +24,16 @@
     "model": "adventure.location", 
     "fields": {
       "description": "In a land not so far away in a time not so long ago...\r\n\r\nSo at point E, usually know as a generic Bar, you sit around waiting for some, hopefully attractive, NPC to show up to get the story going.\r\n\r\nAround 42 Beers later you reach the conclusion that waiting is futile and [order another beer](#2) or maybe you [finally go home](#3).", 
+      "links": [
+        3, 
+        4
+      ], 
+      "created": "2010-08-15 13:28:57", 
       "title": "Somewhere in a Bar", 
-      "type": 0, 
+      "number": 1, 
+      "modified": "2010-08-15 16:56:03", 
       "adventure": 1, 
-      "number": 1
+      "type": 0
     }
   }, 
   {
@@ -33,10 +41,16 @@
     "model": "adventure.location", 
     "fields": {
       "description": "While the worries about paying off you dept with the innkeeper slowly start to grow you [have another one since it doesn't matter anyways anymore](#2) or you [finally head home](#3)", 
+      "links": [
+        3, 
+        4
+      ], 
+      "created": "2010-08-15 13:28:57", 
       "title": "Another Beer", 
-      "type": 0, 
+      "number": 2, 
+      "modified": "2010-08-15 16:56:21", 
       "adventure": 1, 
-      "number": 2
+      "type": 0
     }
   }, 
   {
@@ -44,10 +58,17 @@
     "model": "adventure.location", 
     "fields": {
       "description": "On your way home you spot a black cat chewing on a Cheesburger in a side street. You could [fight the cat for the Burger](#4) or [continue you trip](#5). \r\n\r\nShould that notion of that cat baffle you too much maybe [head back to the bar for another beer ?](#2)", 
+      "links": [
+        3, 
+        5, 
+        6
+      ], 
+      "created": "2010-08-15 13:28:57", 
       "title": "Heading Home", 
-      "type": 0, 
+      "number": 3, 
+      "modified": "2010-08-15 16:56:25", 
       "adventure": 1, 
-      "number": 3
+      "type": 0
     }
   }, 
   {
@@ -55,10 +76,13 @@
     "model": "adventure.location", 
     "fields": {
       "description": "You make up your mind and head into the side street.\r\n\r\n_No you can't has cheezburger_ are the last words you hear before over nine thousands cats jump you.", 
+      "links": [], 
+      "created": "2010-08-15 13:28:57", 
       "title": "Catfight", 
-      "type": 2, 
+      "number": 4, 
+      "modified": "2010-08-15 16:56:29", 
       "adventure": 1, 
-      "number": 4
+      "type": 2
     }
   }, 
   {
@@ -66,10 +90,16 @@
     "model": "adventure.location", 
     "fields": {
       "description": "You reach the front door of _your_ **House** and while you are no **Doctor** you sure have no problem sliding the key into the lock... apart from the fact that you don't have a key in your hand.\r\n\r\nIn your current condition [kicking the door open](#6) and [sleeping on the doormat](#7) seem like the best options.", 
+      "links": [
+        7, 
+        8
+      ], 
+      "created": "2010-08-15 13:28:57", 
       "title": "The front Door", 
-      "type": 0, 
+      "number": 5, 
+      "modified": "2010-08-15 16:56:32", 
       "adventure": 1, 
-      "number": 5
+      "type": 0
     }
   }, 
   {
@@ -77,10 +107,13 @@
     "model": "adventure.location", 
     "fields": {
       "description": "Your future self can deal with the broken, he would do the same thing of time went the other way so fuck him.\r\n\r\nWhile you slide into your warm cosy bed you decide that tomorrow is a good day for further **text adventures**.", 
+      "links": [], 
+      "created": "2010-08-15 13:28:57", 
       "title": "Open doors for open people", 
-      "type": 1, 
+      "number": 6, 
+      "modified": "2010-08-15 16:56:35", 
       "adventure": 1, 
-      "number": 6
+      "type": 1
     }
   }, 
   {
@@ -88,10 +121,22 @@
     "model": "adventure.location", 
     "fields": {
       "description": "While you dose away with you last toughs you notice that \r\n\r\n----------\r\n**Unnecessary Censorship**\r\n\r\n----------\r\n\r\nBetter luck next time !", 
+      "links": [], 
+      "created": "2010-08-15 13:28:57", 
       "title": "Sleeping at the doorstep", 
-      "type": 2, 
+      "number": 7, 
+      "modified": "2010-08-15 17:03:24", 
       "adventure": 1, 
-      "number": 7
+      "type": 2
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "adventure.rating", 
+    "fields": {
+      "rating": 1, 
+      "user": 2, 
+      "adventure": 1
     }
   }
 ]
