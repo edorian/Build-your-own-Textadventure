@@ -8,8 +8,8 @@
 is no undo and the location will be in nirvana for ever.</p>
 
 <form action="" method="post">{% csrf_token %}
-    <a href="{% url location-edit adventure.pk object.pk %}"><input type="button" value="no, bring me back" /></a>
     <input type="submit" value="yes, i'm sure - delete the location" />
+    <a href="{% url location-edit adventure.pk object.pk %}"><input type="button" value="no, bring me back" /></a>
 </form>
 
 {% endblock %}

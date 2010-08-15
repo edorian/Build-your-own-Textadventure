@@ -4,7 +4,7 @@ html {
     font-family:sans-serif;
 }
 
-a, a:visited {
+a {
     color:#0000ff;
 }
 
@@ -41,10 +41,17 @@ form {
     
 }
 
+input[type=submit],
+input[type=button] {
+    font-size:1.1em;
+}
+
 .delete {
     padding:0.5em;
-    padding-left:2.5em;
+    padding-left:38px;
+    font-size:1.1em;
     color:#ff0000;
+    background: url(icons/22x22/delete.png) no-repeat 8px center;
 }
 
 input[type=text], input[type=password] {

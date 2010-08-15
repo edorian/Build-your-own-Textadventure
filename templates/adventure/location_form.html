@@ -65,7 +65,6 @@
         <p>
             <input type="submit" name="_continue" value="save and continue editing" />
             <input type="submit" name="_new" value="save and create another location" />
-            <br />
             {% if not create %}
             <a href="{% url location-delete adventure.pk object.pk %}" class="delete">Delete this location</a>
             {% endif %}
