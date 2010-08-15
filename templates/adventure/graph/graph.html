@@ -1,0 +1,20 @@
+{% if graph %}
+<div class="graphwrapper {{ css_class }}">
+    <div class="graph">
+        <object type="image/svg+xml" data="{{ graph.svg.url }}"></object>
+    </div>
+
+    <p class="help_text">
+        The location where your adventure starts is <span
+        class="startnode">marked as blue</span>. Winning locations are
+        <span class="winnode">green</span> and places where you loose are in a
+        <span class="loosenode">yellow tone</span>.<br />
+    </p>
+
+    <p class="help_text">
+        There can also appear errors in the adventure like if you have page
+        that doesn't link to another page and is not winning or loosing
+        page. These locations have a <span class="looseend">red text</span>.
+    </p>
+</div>
+{% endif %}

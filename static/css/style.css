@@ -14,9 +14,20 @@ p {
     line-height:1.5em;
 }
 
+.pullleft {
+    float:left;
+}
+.pullright {
+    float:right;
+}
+
 /*
  * Forms
  */
+
+form {
+    margin:2em 0;
+}
 
 .field {
     clear:both;
@@ -86,6 +97,46 @@ textarea {
     display: none;
 }
 
+.graphwrapper {
+    margin:1em 3em;
+}
+
+.graph {
+    margin:1em 0;
+    max-width:50em;
+    max-height:40em;
+    text-align:center;
+    overflow:auto;
+}
+
+.editor-graph {
+    margin:2em 0 2em 0;
+}
+
+.winnode,
+.loosenode,
+.startnode,
+.looseend {
+    padding:0 0.25em;
+    border:solid 1px #000000;
+}
+.startnode {
+    background-color:#ddddff;
+    color:#0000ff;
+}
+.winnode {
+    background-color:#ddffdd;
+    color:#008800;
+}
+.loosenode {
+    background-color:#ffffdd;
+    color:#444400;
+}
+.looseend {
+    background-color:#ffffdd;
+    color:#ff0000;
+}
+
 table.object-list thead {
     background-color:#e0e0e0;
     border-bottom:solid 1px #aaaaaa;
@@ -145,7 +196,8 @@ table.object-list td {
 }
 
 #main h2 {
-    font-size: 1.1em;
+    font-size: 1.2em;
+    margin-top:0.3em;
     padding: 0.3em 0;
 }
 

@@ -157,8 +157,13 @@ class Location (models.Model):
     def save(self, *args, **kwargs):
         if not self.number:
             self.number = self.get_next_number()
-        self.links = self.extract_links()
         return super(Location, self).save(*args, **kwargs)
+
+
+def save_location_links(sender, instance, **kwargs):
+    instance.links = instance.extract_links()
+
+models.signals.post_save.connect(save_location_links, sender=Location)
 
 
 class Graph(models.Model):

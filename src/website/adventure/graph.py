@@ -1,10 +1,13 @@
 import hashlib
 import tempfile
-from django.conf import settings
 from django.core.files import File
 from django.db.models.signals import post_save
-from pygraphviz import AGraph
 from website.adventure.models import Location, Graph
+
+try:
+    import pygraphviz
+except ImportError:
+    pygraphviz = None
 
 
 class GraphGenerator(object):
@@ -24,7 +27,7 @@ class GraphGenerator(object):
     def format_win_node(self, node):
         node.attr['style'] = 'filled'
         node.attr['fillcolor'] = '#ddffdd'
-        node.attr['color'] = 'green'
+        node.attr['color'] = '#008800'
 
     def format_loose_node(self, node):
         node.attr['style'] = 'filled'
@@ -41,7 +44,7 @@ class GraphGenerator(object):
         node.attr['color'] = '#0000ff'
 
     def generate_location_graph(self):
-        graph = AGraph(strict=False, directed=True)
+        graph = pygraphviz.AGraph(strict=False, directed=True)
         graph.add_nodes_from([l.get_number_display() for l in self.locations])
         for location in self.locations:
             for link in location.links.all():
@@ -58,7 +61,8 @@ class GraphGenerator(object):
         loose_ends -= self.win_locations
         loose_ends -= self.loose_locations
         for u, v in self.graph.edges_iter():
-            loose_ends -= set([u])
+            if u != v:
+                loose_ends -= set([u])
             if not loose_ends:
                 break
         for node in loose_ends:
@@ -85,6 +89,9 @@ class GraphGenerator(object):
 
 
 def update_location_graph(sender, instance, **kwargs):
+    if pygraphviz is None:
+        return
+
     generator = GraphGenerator(instance.adventure)
     generator.generate_location_graph()
     generator.color_graph()
