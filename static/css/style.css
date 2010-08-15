@@ -46,6 +46,22 @@ input[type=button] {
     font-size:1.1em;
 }
 
+.add {
+    padding:0.5em;
+    padding-left:38px;
+    font-size:1.1em;
+    color:#008800;
+    background: url(icons/22x22/add.png) no-repeat 8px center;
+}
+
+.edit {
+    padding:0.5em;
+    padding-left:38px;
+    font-size:1.1em;
+    color:#888800;
+    background: url(icons/22x22/edit.png) no-repeat 8px center;
+}
+
 .delete {
     padding:0.5em;
     padding-left:38px;

@@ -8,12 +8,12 @@
     <div class="pullleft">
 
     {% if not create %}
-    <ul>
+    <p>
         {% if object.last_location %}
-        <li><a href="{% url location-edit object.pk object.last_location.pk %}">Edit locations</a></li>
+        <a href="{% url location-edit object.pk object.last_location.pk %}" class="edit">Edit locations</a>
         {% endif %}
-        <li><a href="{% url location-create object.pk %}">Create new locations</a></li>
-    </ul>
+        <a href="{% url location-create object.pk %}" class="add">Create new location</a>
+    </p>
     {% endif %}
 
     <form action="" method="post">{% csrf_token %}
