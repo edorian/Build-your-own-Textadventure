@@ -1,16 +1,21 @@
 {% extends "base.html" %}
 {% load rating_tags %}
 
-
-{% block content %}
-
 {% block extra_js %}
 <script type="text/javascript" src="{{ STATIC_URL }}js/star-rating/jquery.MetaData.js"></script> 
 <script type="text/javascript" src="{{ STATIC_URL }}js/star-rating/jquery.rating.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".star-container").show();
+});
+</script>
 {% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{{ STATIC_URL }}js/star-rating/jquery.rating.css"></link>
 {% endblock %}
+
+{% block content %}
 
 {% if only_own_adventures %}
 <h1>The Adventures you created</h1>
@@ -44,7 +49,9 @@
             </td>
             <td><a href="{% url adventure-list-author adventure.author.username %}">{{ adventure.author.username }}</a></td>
             <td><a href="{% url adventure-list-language adventure.language %}">{{ adventure.get_language_display }}</a></td>
-            <td>{% display_rating adventure %}</td>
+            <td>
+                <div class="star-container">{% display_rating adventure %}</div>
+            </td>
             {% if show_status %}
             <td>{{ adventure.status }}</td>
             {% endif %}
