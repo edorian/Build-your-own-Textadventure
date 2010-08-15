@@ -7,6 +7,6 @@ def profile(request):
     profile = request.user.profile
     return render_to_response('profile/profile_detail.html', {
         'object': profile,
-        'adventures_completed': request.user.started_adventure.count(),
-        'adventures_started': request.user.completed_adventure.count(),
+        'adventures_completed': request.user.completed_adventure.count(),
+        'adventures_started': request.user.started_adventure.count(),
     }, context_instance=RequestContext(request))

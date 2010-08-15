@@ -17,6 +17,7 @@
                 })
             }
         });
+        $(".star-container").show();
     });
     </script>
     {% endblock %}
@@ -29,7 +30,7 @@
 
 <h1 style="float: left">{{ adventure }}</h1>
 {% if user.is_authenticated %}
-<div style="float: right">
+<div class="star-container" style="float: right">
     Rate this Adventure: <br />
     <form action="{% url adventure-rating adventure.id %}" method="POST" id="rating">
     {% for rating in RATING_CHOICES %}
