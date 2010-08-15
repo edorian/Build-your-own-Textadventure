@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'registration',
     'south',
+    'staticfiles',
     'website.adventure',
     'website.profile',
 )
