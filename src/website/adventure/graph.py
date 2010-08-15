@@ -27,7 +27,7 @@ class GraphGenerator(object):
     def format_win_node(self, node):
         node.attr['style'] = 'filled'
         node.attr['fillcolor'] = '#ddffdd'
-        node.attr['color'] = 'green'
+        node.attr['color'] = '#008800'
 
     def format_loose_node(self, node):
         node.attr['style'] = 'filled'

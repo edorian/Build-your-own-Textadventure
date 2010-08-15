@@ -64,8 +64,9 @@
             <input type="submit" name="_new" value="save and create another location" />
         </p>
 
-
         {% if adventure.graph %}
+        <div class="editor-graph">
+        <h2>Adventure places</h2>
         <p class="help_text">
             Below is a graph that makes a relation between all your current
             locations. Please save your current location to update the graph.
@@ -73,6 +74,18 @@
         <div class="graph">
             <object type="image/svg+xml" data="{{ adventure.graph.svg.url }}"></object>
         </div>
+        <p class="help_text">
+            The location where your adventure starts is <span
+            class="startnode">marked as blue</span>. Winning locations are
+            <span class="winnode">green</span> and places where you loose are in a
+            <span class="loosenode">yellow tone</span>.<br />
+
+            There can also appear errors in the adventure like if you have page
+            that doesn't link to another page and is not winning or loosing
+            page. These locations have a <span class="looseend">red text</span>.
+        </p>
+        </div>
         {% endif %}
+
     </form>
 {% endblock %}
