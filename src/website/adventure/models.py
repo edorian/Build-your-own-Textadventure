@@ -21,6 +21,10 @@ class AdventurePublicManager(models.Manager):
 
 
 class Adventure (models.Model):
+    
+    # For now let this be 0, we change it when there are some more users
+    RATINGS_REQUIRED_TO_CARE = 0
+
     name = models.CharField(max_length=50)
     author = models.ForeignKey("auth.User")
     description = models.TextField(blank=True)
