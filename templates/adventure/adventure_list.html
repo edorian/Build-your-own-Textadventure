@@ -59,7 +59,7 @@ $(document).ready(function() {
             {% if only_own_adventures %}
             <td>{{ adventure.published|yesno}}</td>
             <td>
-                <a href="{% url adventure-edit adventure.id %}">edit</a>
+                <a href="{% url adventure-edit adventure.id %}" class="smalledit">edit</a>
             </td>
             {% endif %}
 
