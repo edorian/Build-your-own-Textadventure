@@ -45,10 +45,11 @@
         </div>
         <p>
             <input type="submit" value="Let's go !" />
+            {% if not create %}
             <a href="{% url adventure-delete object.pk %}" class="delete">delete adventure</a>
+            {% endif %}
         </p>
     </form>
-    
     </div>
 
     {% if object %}{% adventure_graph object "pullleft" %}{% endif %}
