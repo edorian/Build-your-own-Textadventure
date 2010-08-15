@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/jquery/lightbox/css/jquery.lightbox-0.5.css">
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/lightbox/js/jquery.lightbox-0.5.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".lightbox").lightBox();
+});
+</script>
+{% endblock %}
 
 {% block content %}
     <h1>Create your own Textadventures for other people to play</h1>
@@ -28,15 +40,20 @@
             preview</strong>, easy text formating that doesn't require you to
             press buttons the whole time if you don't want to. Furthermore drag
             and drop support for linking your story locations together !.<br />
-            <img style="margin-left:100px; margin-top: 10px; border: 1px solid
-                black" src="{{ STATIC_URL }}images/example_adventure_editor.png"
-                width="400px" border="1" />
+            <a class="lightbox" href="{{ STATIC_URL }}images/example_adventure_editor.png">
+                <img class="highlightable" 
+                    style="margin-left:100px; margin-top: 10px; border: 1px solid black" 
+                    src="{{ STATIC_URL }}images/example_adventure_editor.png"
+                    width="400px" border="1" />
+            </a>
             <br />
         </p>
         <p style="min-height: 250px">
-            <img style="float: right" 
-                src="{{ STATIC_URL }}images/example_adventure_overview_graph.png"
-                alt="Adventure overview example" height="250px" />
+            <a class="lightbox" href="{{ STATIC_URL }}images/example_adventure_overview_graph.png">
+                <img style="float: right" 
+                    src="{{ STATIC_URL }}images/example_adventure_overview_graph.png"
+                    alt="Adventure overview example" height="250px" />
+            </a>
             <br />
             Once your adventure gets bigger and it starts getting hard to keep
             track of all the ways a player can take you'll get a
@@ -56,5 +73,15 @@
             like <em>Player found the red key ?</em> and a zoomable scrollable
             adventure overview map.
         </p>
+        <p>
+            If you want to get in touch with us please visit 
+            <a href="{% url about %}">the 'About us' page</a>
+        </p>
     </div>
+    <div style="float: right">
+        <h2>Popular adventures</h2>
+        <h2>Random adventure</h2>
+
+    </div>
+
 {% endblock %}
