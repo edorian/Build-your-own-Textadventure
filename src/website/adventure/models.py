@@ -2,7 +2,7 @@ import re
 from datetime import datetime
 from BeautifulSoup import BeautifulSoup
 from markdown import markdown
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import get_resolver, reverse, Resolver404
 from django.db import models
 from django.db.models import Max
 from django.db.models import Q, Avg
@@ -25,7 +25,7 @@ class Adventure (models.Model):
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
     language = models.CharField(max_length=5, choices=LANGUAGES, default="en")
-    
+
     started_by_user = models.ManyToManyField(
         "auth.User", related_name="started_adventure", blank=True
     )
@@ -84,6 +84,7 @@ class Location (models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=TYPE_NORMAL)
+    links = models.ManyToManyField('self', symmetrical=False, blank=True)
 
     class Meta:
         ordering = ('adventure', 'number',)
@@ -130,15 +131,32 @@ class Location (models.Model):
                 self._next_number = (aggregate['number__max'] or 0) + 1
         return self._next_number
 
+    def extract_links(self):
+        from website.adventure.views.player import adventure_location
+        resolver = get_resolver(None)
+        html = self.get_description_display()
+        html = BeautifulSoup(html)
+        links = []
+        for a in html.findAll('a'):
+            try:
+                callback, args, kwargs = resolver.resolve(a['href'])
+                if callback is adventure_location and int(kwargs['adventure_id']) == self.adventure.pk:
+                    links.append(int(kwargs['location_number']))
+            except Resolver404:
+                pass
+        return self.adventure.locations.filter(pk__in=links)
+
     def save(self, *args, **kwargs):
         if not self.number:
             self.number = self.get_next_number()
+        self.links = self.extract_links()
         return super(Location, self).save(*args, **kwargs)
+
 
 class RatingManager (models.Manager):
     def avg_rating(self, adventure):
         return self.filter(adventure=adventure).aggregate(Avg('rating'))
-    
+
     def ratings(self, adventure):
         return self.filter(adventure=adventure).count();
 
