@@ -163,7 +163,7 @@ class Location (models.Model):
 
 class Graph(models.Model):
     adventure = models.OneToOneField(Adventure, db_index=True)
-    hash = models.CharField(max_length=32)
+    hash = models.CharField(max_length=64)
     dot = models.TextField()
     svg = models.FileField(upload_to='adventures/graphs/')
 
