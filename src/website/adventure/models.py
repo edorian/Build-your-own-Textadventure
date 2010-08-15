@@ -8,6 +8,8 @@ from django.db.models import Max
 from django.db.models import Q, Avg
 from django.utils.encoding import force_unicode
 from django.utils.html import escape, mark_safe
+from django_extensions.db.fields import CreationDateTimeField, \
+    ModificationDateTimeField
 from website.adventure.utils import LANGUAGES
 
 
@@ -21,17 +23,17 @@ class AdventurePublicManager(models.Manager):
 class Adventure (models.Model):
     name = models.CharField(max_length=50)
     author = models.ForeignKey("auth.User")
-    created = models.DateTimeField(default=datetime.now)
     description = models.TextField(blank=True)
     published = models.BooleanField(default=False)
     language = models.CharField(max_length=5, choices=LANGUAGES, default="en")
 
     started_by_user = models.ManyToManyField(
-        "auth.User", related_name="started_adventure", blank=True
-    )
+        "auth.User", related_name="started_adventure", blank=True)
     completed_by_user = models.ManyToManyField(
-        "auth.User", related_name="completed_adventure", blank=True
-    )
+        "auth.User", related_name="completed_adventure", blank=True)
+
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
 
     objects = AdventurePublicManager()
 
@@ -85,6 +87,9 @@ class Location (models.Model):
     description = models.TextField()
     type = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, default=TYPE_NORMAL)
     links = models.ManyToManyField('self', symmetrical=False, blank=True)
+
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
 
     class Meta:
         ordering = ('adventure', 'number',)
