@@ -154,6 +154,10 @@ textarea {
     margin:1em;
 }
 
+.nohelp .help_text {
+    display:none;
+}
+
 .graph {
     margin:1em 0;
     max-width:50em;
