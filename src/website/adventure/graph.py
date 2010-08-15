@@ -1,7 +1,7 @@
 import hashlib
 import tempfile
 from django.core.files import File
-from django.db.models.signals import post_save
+from django.db.models.signals import post_delete, post_save
 from website.adventure.models import Location, Graph
 
 try:
@@ -110,3 +110,4 @@ def update_location_graph(sender, instance, **kwargs):
 
 
 post_save.connect(update_location_graph, sender=Location)
+post_delete.connect(update_location_graph, sender=Location)

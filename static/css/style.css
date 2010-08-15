@@ -41,6 +41,12 @@ form {
     
 }
 
+.delete {
+    padding:0.5em;
+    padding-left:2.5em;
+    color:#ff0000;
+}
+
 input[type=text], input[type=password] {
     width:30em;
 }
