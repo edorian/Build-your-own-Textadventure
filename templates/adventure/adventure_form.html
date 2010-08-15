@@ -1,8 +1,11 @@
 {% extends "adventure/base.html" %}
+{% load adventure_tags %}
 
 
 {% block content %}
     <h1>Create new adventure</h1>
+
+    <div class="pullleft">
 
     {% if not create %}
     <ul>
@@ -19,4 +22,8 @@
         <input type="submit" value="save" />
         </p>
     </form>
+    
+    </div>
+
+    {% if object %}{% adventure_graph object "pullleft" %}{% endif %}
 {% endblock %}

@@ -14,9 +14,20 @@ p {
     line-height:1.5em;
 }
 
+.pullleft {
+    float:left;
+}
+.pullright {
+    float:right;
+}
+
 /*
  * Forms
  */
+
+form {
+    margin:2em 0;
+}
 
 .field {
     clear:both;
@@ -86,9 +97,13 @@ textarea {
     display: none;
 }
 
+.graphwrapper {
+    margin:1em 3em;
+}
+
 .graph {
-    padding:2em 0;
-    max-width:60em;
+    margin:1em 0;
+    max-width:50em;
     max-height:40em;
     text-align:center;
     overflow:auto;
