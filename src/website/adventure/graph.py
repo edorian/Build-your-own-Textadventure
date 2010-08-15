@@ -12,6 +12,33 @@ class GraphGenerator(object):
         self.adventure = adventure
         self.locations = list(adventure.locations.all())
         self.graph = None
+        self.win_locations = set([
+            l.get_number_display()
+            for l in self.locations
+            if l.type == l.TYPE_WIN])
+        self.loose_locations = set([
+            l.get_number_display()
+            for l in self.locations
+            if l.type == l.TYPE_LOOSE])
+
+    def format_win_node(self, node):
+        node.attr['style'] = 'filled'
+        node.attr['fillcolor'] = '#ddffdd'
+        node.attr['color'] = 'green'
+
+    def format_loose_node(self, node):
+        node.attr['style'] = 'filled'
+        node.attr['fillcolor'] = '#ffffdd'
+        node.attr['color'] = '#888800'
+
+    def format_loose_end(self, node):
+        node.attr['color'] = '#ff0000'
+        node.attr['fontcolor'] = '#ff0000'
+
+    def format_start_node(self, node):
+        node.attr['style'] = 'filled'
+        node.attr['fillcolor'] = '#ddddff'
+        node.attr['color'] = '#0000ff'
 
     def generate_location_graph(self):
         graph = AGraph(strict=False, directed=True)
@@ -24,7 +51,31 @@ class GraphGenerator(object):
         self.graph = graph
 
     def color_graph(self):
-        pass
+        if len(self.locations) == 0:
+            return
+
+        loose_ends = set([l.get_number_display() for l in self.locations])
+        loose_ends -= self.win_locations
+        loose_ends -= self.loose_locations
+        for u, v in self.graph.edges_iter():
+            loose_ends -= set([u])
+            if not loose_ends:
+                break
+        for node in loose_ends:
+            node = self.graph.get_node(node)
+            self.format_loose_end(node)
+
+        starting_location = self.locations[0].get_number_display()
+        start_node = self.graph.get_node(starting_location)
+        self.format_start_node(start_node)
+
+        for node in self.win_locations:
+            node = self.graph.get_node(node)
+            self.format_win_node(node)
+
+        for node in self.loose_locations:
+            node = self.graph.get_node(node)
+            self.format_loose_node(node)
 
     def get_hash(self):
         sha = hashlib.sha1()
