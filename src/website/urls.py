@@ -1,18 +1,18 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 from django.contrib import admin
-from django.shortcuts import render_to_response
+from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.template import RequestContext
 
 
 def handler404(request):
-    return render_to_response('404.html', {
-    }, context_instance=RequestContext(request))
+    t = loader.get_template('404.html')
+    return HttpResponseNotFound(t.render(RequestContext(request, {'request_path': request.path})))
 
 
 def handler500(request):
-    return render_to_response('500.html', {
-    }, context_instance=RequestContext(request))
+    t = loader.get_template('500.html')
+    return HttpResponseServerError(t.render(RequestContext(request, {'request_path': request.path})))
 
 
 admin.autodiscover()
