@@ -17,7 +17,7 @@
     <h1>Edit {{ object }} in adventure {{ adventure }}</h1>
     {% endif %}
     <p>
-        <a href="{% url adventure-edit adventure.pk %}" class="back">Back to adventure</a>
+        <a href="{% url adventure-edit adventure.pk %}" class="edit">Edit adventure</a>
     </p>
     <form action="" method="post">{% csrf_token %}
         <div class="pullleft">
