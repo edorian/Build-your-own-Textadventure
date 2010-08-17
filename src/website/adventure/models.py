@@ -179,6 +179,19 @@ class Graph(models.Model):
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
+    @classmethod
+    def delete_on_adventure_deletion(cls, sender, instance, **kwargs):
+        try:
+            graph = instance.graph
+            graph.delete()
+        except cls.DoesNotExist:
+            pass
+
+
+models.signals.pre_delete.connect(
+    Graph.delete_on_adventure_deletion,
+    sender=Adventure)
+
 
 class RatingManager (models.Manager):
     def avg_rating(self, adventure):
