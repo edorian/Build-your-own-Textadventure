@@ -182,8 +182,7 @@ class Graph(models.Model):
     @classmethod
     def delete_on_adventure_deletion(cls, sender, instance, **kwargs):
         try:
-            graph = instance.graph
-            graph.delete()
+            instance.graph.delete()
         except cls.DoesNotExist:
             pass
 

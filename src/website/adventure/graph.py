@@ -88,15 +88,27 @@ class GraphGenerator(object):
         return sha.hexdigest()
 
 
-def update_location_graph(sender, instance, **kwargs):
+def update_location_graph(sender, instance, signal, **kwargs):
     if pygraphviz is None:
         return
+
+    try:
+        graph = Graph.objects.get(adventure=instance.adventure)
+    except Graph.DoesNotExist:
+        # don't create new graph if location is deleted
+        # necessary since:
+        #   Adventure.delete() would trigger Graph.delete() and
+        #   Location.delete() on all related locations. This again triggers
+        #   update_location_graph which would re-generate the graph we already
+        #   have deleted.
+        if sender is Location and signal is post_delete:
+            return
+        graph = Graph(adventure=instance.adventure)
 
     generator = GraphGenerator(instance.adventure)
     generator.generate_location_graph()
     generator.color_graph()
     generator.get_hash()
-    graph, created = Graph.objects.get_or_create(adventure=instance.adventure)
     graph.hash = generator.get_hash()
     graph.dot = generator.graph.string()
 
