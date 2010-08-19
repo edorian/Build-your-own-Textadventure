@@ -86,6 +86,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'staticfiles.context_processors.static_url',
     'website.context_processors.site',
+    'website.context_processors.piwik',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -115,6 +116,8 @@ LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_ACTIVATION_DAYS = 3
+
+PIWIK_BASE_URL = None
 
 INSTALLED_APPS = (
     'django.contrib.admin',

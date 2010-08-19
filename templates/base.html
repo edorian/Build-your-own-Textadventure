@@ -80,5 +80,20 @@
     <script src="{{ STATIC_URL }}js/init.js"></script>
     {% block extra_js %}{% endblock %}
 
+    {% block piwik %}
+    {% if PIWIK_BASE_URL %}
+    <script type="text/javascript">
+    var pkBaseURL = {{ PIWIK_BASE_URL }};
+    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    </script><script type="text/javascript">
+    try {
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+    piwikTracker.trackPageView();
+    piwikTracker.enableLinkTracking();
+    } catch( err ) {}
+    </script><noscript><p><img src="{{ PIWIK_BASE_URL }}piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+    {% endif %}
+    {% endblock %}
+
 </body>
 </html>
