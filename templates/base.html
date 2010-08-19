@@ -83,7 +83,7 @@
     {% block piwik %}
     {% if PIWIK_BASE_URL %}
     <script type="text/javascript">
-    var pkBaseURL = {{ PIWIK_BASE_URL }};
+    var pkBaseURL = '{{ PIWIK_BASE_URL|escapejs }}';
     document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
     </script><script type="text/javascript">
     try {
