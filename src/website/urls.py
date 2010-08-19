@@ -72,6 +72,8 @@ urlpatterns = patterns('',
 
     # admin
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^', include('shorturls.urls')),
 )
 
 if settings.DEBUG:

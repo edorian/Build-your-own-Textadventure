@@ -127,11 +127,20 @@ INSTALLED_APPS = (
     'django_extensions',
     'gunicorn',
     'registration',
+    'shorturls',
     'south',
     'staticfiles',
     'website.adventure',
     'website.profile',
 )
+
+SHORTEN_MODELS = {
+    'A': 'adventure.adventure',
+}
+
+SHORT_BASE_URL = 'http://txtadv.net/'
+
+
 FIXTURE_DIRS = (
     join("src/website/fixtures"),
 )

@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% load shorturl %}
+
+
+{% block extra_head %}
+    {% revcanonical object %}
+{% endblock %}
 
 
 {% block content %}
@@ -10,4 +16,9 @@
     {% endif %}
     <a href="{% url adventure-start object.id %}" class="forward">Start Adventure</a>
 </p>
+{% if object.published %}
+<p>
+    Short URL: <a href="{% shorturl object %}">{% shorturl object %}</a>
+</p>
+{% endif %}
 {% endblock %}

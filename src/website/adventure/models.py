@@ -21,7 +21,7 @@ class AdventurePublicManager(models.Manager):
 
 
 class Adventure (models.Model):
-    
+
     # For now let this be 0, we change it when there are some more users
     RATINGS_REQUIRED_TO_CARE = 0
 
