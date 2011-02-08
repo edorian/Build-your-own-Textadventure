@@ -70,6 +70,9 @@ def adventure_list_by_language(request, language):
 
 def adventure_detail(request, object_id):
     object = Adventure.objects.get(pk=object_id)
+    if 'adventure_state' in request.session and object_id in request.session['adventure_state']:
+        # TODO Show resume adventure button
+        pass
     return render_to_response('adventure/adventure_detail.html', {
         "object": object,
     }, context_instance=RequestContext(request))
@@ -86,6 +89,11 @@ def adventure_start(request, object_id):
         "object": object_id,
     }, context_instance=RequestContext(request))
     startlocation = object.locations.order_by('number')[0].number
+
+    if 'adventure_state' not in request.session:
+        request.session['adventure_state'] = {}
+    request.session['adventure_state'][object_id] = startlocation;
+
     return adventure_location(request, object_id, startlocation, {"extra_content": startmessage})
 
 def adventure_location(request, adventure_id, location_number, extra_context=None):
@@ -96,6 +104,16 @@ def adventure_location(request, adventure_id, location_number, extra_context=Non
         "adventure": adventure,
         "location": location,
     }
+
+    if request.session['adventure_state'][adventure_id] != location_number:
+        # User moved
+        # TODO Check if move was allowed
+        old_location = location_number
+        new_location = location.id
+        # TODO How to query that table now
+
+        request.session['adventure_state'][adventure_id] = location_number
+
     if request.user.is_authenticated():
         if location.type == location.TYPE_WIN:
             if not adventure.completed_by_user.filter(pk=request.user.id).exists():
