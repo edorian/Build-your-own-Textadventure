@@ -109,10 +109,10 @@ def adventure_location(request, adventure_id, location_number, extra_context=Non
 
     if request.session['adventure_state'][adventure_id] != location_number:
         # User moved
-        # TODO Check if move was allowed
-        old_location = location_number
-        new_location = location.id
-        # TODO How to query that table now
+        old_location_id = request.session['adventure_state'][adventure_id]  
+        old_location = get_object_or_404(Location, adventure=adventure, number=old_location_id)
+        if location not in old_location.links.all():
+            return HttpResponse("Fuu") # TODO make this nicer, maybe
 
         request.session['adventure_state'][adventure_id] = location_number
 
