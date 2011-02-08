@@ -70,11 +70,13 @@ def adventure_list_by_language(request, language):
 
 def adventure_detail(request, object_id):
     object = Adventure.objects.get(pk=object_id)
+    resultable = False
     if 'adventure_state' in request.session and object_id in request.session['adventure_state']:
-        # TODO Show resume adventure button
-        pass
+        resumeable = True
+    
     return render_to_response('adventure/adventure_detail.html', {
         "object": object,
+        "resumeable": resumeable,
     }, context_instance=RequestContext(request))
 
 def adventure_start(request, object_id):

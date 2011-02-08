@@ -14,7 +14,14 @@
     {% if object.author == user %}
     <a href="{% url adventure-edit object.id %}" class="edit">Edit Adventure</a>
     {% endif %}
-    <a href="{% url adventure-start object.id %}" class="forward">Start Adventure</a>
+    {% if resumeable %}
+        <div><strong>You have played this adventure before.</strong></div>
+        <br />
+        <a href="{% url adventure-start object.id %}" class="forward">Continue playing</a>
+        <a href="{% url adventure-start object.id %}" class="forward">Restart Adventure</a>
+    {% else %}
+        <a href="{% url adventure-start object.id %}" class="forward">Start Adventure</a>
+    {% endif %}
 </p>
 {% if object.published %}
 <p>
