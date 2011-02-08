@@ -12,7 +12,7 @@
             callback: function(value) {
                 $(this.form).ajaxSubmit(function(response) {
                     if(response == "update") {
-                        $("#messages").append("<li class='success'>Thank you for your Feedback !</li>");
+                        $("#messages").append("<li class='success'>Thank you for your Feedback!</li>");
                     }
                 })
             }
@@ -55,7 +55,7 @@
 
 <h2>{{ location.title }}</h2>
 <p>{{ location.get_description_display }}</p>
-{% if location.type != location.TYPE_NORMAL %}
+{% if location.type!= location.TYPE_NORMAL %}
 <hr>
 {% endif %}
 
@@ -64,7 +64,7 @@
 {% endif %}
 
 {% if location.type == location.TYPE_LOOSE %}
-<strong>YOUR JOURNEY HAS COME TO AN END OH NOBLE ONE ! A RATHER UNFORUNATE ONE THAT IS !</strong>
+<strong>YOUR JOURNEY HAS COME TO AN END OH NOBLE ONE! A RATHER UNFORUNATE ONE THAT IS!</strong>
 <a href="{% url adventure-start adventure.id %}">Restart Adventure</a>
 {% endif %}
 

@@ -2,7 +2,7 @@
 
 
 {% block content %}
-<h1>Sign up !</h1>
+<h1>Sign up!</h1>
 <form action="" method="post">{% csrf_token %}
     <div class="label">{{ form.username.label_tag }}:</div>
     {{ form.username.errors }}
