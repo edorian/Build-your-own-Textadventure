@@ -113,8 +113,8 @@ def adventure_location(request, adventure_id, location_number, extra_context=Non
         old_location = get_object_or_404(Location, adventure=adventure, number=old_location_id)
         if location not in old_location.links.all():
             return HttpResponse("Fuu") # TODO make this nicer, maybe
-
         request.session['adventure_state'][adventure_id] = location_number
+        request.session.modified = True
 
     if request.user.is_authenticated():
         if location.type == location.TYPE_WIN:
