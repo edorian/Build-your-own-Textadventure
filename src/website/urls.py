@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.template import loader, RequestContext
+from django.views.generic.simple import direct_to_template
 
 
 def handler404(request):
@@ -16,7 +17,6 @@ def handler500(request):
 
 
 admin.autodiscover()
-
 urlpatterns = patterns('',
     # "static"
     url(r'^$', 'website.views.index', name='index'),
@@ -25,6 +25,9 @@ urlpatterns = patterns('',
     # registration & profile
     url(r'^profile/$', 'website.profile.views.profile', name='profile'),
     url(r'^', include('registration.urls')),
+
+    # crawler
+    url(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
 
     # player
     url(r'^adventure/list/$', "website.adventure.views.player.adventure_list", name="adventure-list"),
