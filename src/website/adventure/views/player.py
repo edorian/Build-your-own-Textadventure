@@ -95,6 +95,7 @@ def adventure_start(request, object_id):
     if 'adventure_state' not in request.session:
         request.session['adventure_state'] = {}
     request.session['adventure_state'][object_id] = startlocation;
+    request.session.modified = True
 
     return adventure_location(request, object_id, startlocation, {"extra_content": startmessage})
 
@@ -112,7 +113,9 @@ def adventure_location(request, adventure_id, location_number, extra_context=Non
         old_location_id = request.session['adventure_state'][adventure_id]  
         old_location = get_object_or_404(Location, adventure=adventure, number=old_location_id)
         if location not in old_location.links.all():
-            return HttpResponse("Fuu") # TODO make this nicer, maybe
+            ## TODO update extra_context to include "unallowed move" notice
+            extra_context
+            return adventure_location(request, adventure_id, request.session['adventure_state'][adventure_id], extra_context)
         request.session['adventure_state'][adventure_id] = location_number
         request.session.modified = True
 
