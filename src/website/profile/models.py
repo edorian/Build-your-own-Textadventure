@@ -15,7 +15,7 @@ class Profile(models.Model):
 
 def create_profile_for_user(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        Profile.objects.get_or_create(user=instance)
 
 
 def sync_profiles(sender, created_models, **kwargs):
