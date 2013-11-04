@@ -18,10 +18,9 @@ Setting things up
 
 To install the site do the standard buildout thing::
 
-    python bootstrap.py
-    bin/buildout
-    bin/django syncdb
-    bin/django migrate
+    virtualenv --system-site-packages
+    source bin/activate
+    python manage.py syncdb --migrate
 
 To setup demo Data including a User (demo/demo) and some example Adventures
 please use::
